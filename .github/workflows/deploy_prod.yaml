@@ -15,5 +15,5 @@ jobs:
       uses: actions/checkout@v3
     
     - uses: ok-nick/setup-aftman@v0.4.2
-    - run: rojo build -o game.rbxl
+    - run: rojo build -o "RNG Battles.rbxl"
     - run: rbxcloud experience publish -f "RNG Battles.rbxl" -p 18986345507 -u 6432413072 -t published -a ${{secrets.API_KEY}}
