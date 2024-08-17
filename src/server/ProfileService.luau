@@ -803,14 +803,14 @@ local function StandardProfileUpdateAsyncDataStore(
 					if is_get_call == true then
 						local get_data, get_key_info
 						if version ~= nil then
-							local success, error_message = pcall(function()
+							local writeSuccess, writeError_message = pcall(function()
 								get_data, get_key_info =
 									profile_store._global_data_store:GetVersionAsync(profile_key, version)
 							end)
 							if
-								success == false
-								and type(error_message) == "string"
-								and string.find(error_message, "not valid") ~= nil
+								writeSuccess == false
+								and type(writeError_message) == "string"
+								and string.find(writeError_message, "not valid") ~= nil
 							then
 								warn(
 									"[ProfileService]: Passed version argument is not valid; Traceback:\n"
@@ -2427,6 +2427,7 @@ task.spawn(function()
 			-- 1) Release all active profiles: --
 			-- Clone AutoSaveList to a new table because AutoSaveList changes when profiles are released:
 			local on_close_save_job_count = 0
+			-- selene: allow(manual_table_clone)
 			local active_profiles = {}
 			for index, profile in ipairs(AutoSaveList) do
 				active_profiles[index] = profile
