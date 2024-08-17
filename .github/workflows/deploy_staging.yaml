@@ -14,10 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
-    - uses: Roblox/setup-foreman@v1
-      name: Install Foreman
-      with:
-        version: "^1.0.0"
-        token: ${{SECRETS.GITHUB_TOKEN}}
+    - uses: ok-nick/setup-aftman@v0.4.2
     - run: rojo build -o game.rbxl
     - run: rbxcloud experience publish -f "RNG Battles.rbxl" -p 18986008463 -u 6432287837 -t published -a ${{secrets.API_KEY}}
