@@ -8,7 +8,7 @@ local defaultProfile = {
 }
 
 local ProfileService = require(script.ProfileService)
-
+local MatchmakingService = require(script.MatchmakingService)
 local Players = game:GetService("Players")
 
 local profileStore = ProfileService.GetProfileStore("PlayerData", defaultProfile)
@@ -16,6 +16,7 @@ local profileStore = ProfileService.GetProfileStore("PlayerData", defaultProfile
 local profiles = {}
 
 local function playerRemoved(player: Player)
+	MatchmakingService.ClearPlayerFromMemory(player)
 	local profile = profiles[player]
 	if profile ~= nil then
 		profile:Release()
