@@ -9,6 +9,7 @@ local defaultProfile = {
 
 local ProfileService = require(script.ProfileService)
 local MatchmakingService = require(script.MatchmakingService)
+local InitialiseGame = require(script.InitialiseGame)
 local Players = game:GetService("Players")
 
 local profileStore = ProfileService.GetProfileStore("PlayerData", defaultProfile)
@@ -48,3 +49,12 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 Players.PlayerAdded:Connect(playerAdded)
 Players.PlayerRemoving:Connect(playerRemoved)
+
+InitialiseGame()
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Events = ReplicatedStorage:WaitForChild("Events")
+Events:WaitForChild("RequestBattle").OnServerEvent:Connect(function(player)
+	print("Player requested battle")
+	MatchmakingService.JoinPool(player)
+end)
