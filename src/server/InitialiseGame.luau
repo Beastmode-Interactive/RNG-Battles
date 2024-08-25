@@ -7,6 +7,7 @@ events.Name = "Events"
 local remoteEventNames = {
 	"RequestBattle",
 	"ExitBattleRequest",
+	"PlayerIsMatched",
 }
 
 local function createRemoteEvent(name)

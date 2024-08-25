@@ -5,19 +5,29 @@ local Events = ReplicatedStorage:WaitForChild("Events")
 
 return function(props)
 	local onBattleClicked = function()
-		if props.isQueueing then
-			props.setIsQueueing(false)
+		if props.playerState == "Unqueued" then
+			props.setPlayerState("Queued")
+			Events:WaitForChild("RequestBattle"):FireServer()
+		elseif props.playerState == "Queued" then
+			props.setPlayerState("Unqueued")
 			Events:WaitForChild("ExitBattleRequest"):FireServer()
 		else
-			props.setIsQueueing(true)
-			Events:WaitForChild("RequestBattle"):FireServer()
+			error("Player tried to interact with battle button after teleportation began")
 		end
 	end
 
+	local text, style
+	if props.playerState == "Queued" then
+		text = "Cancel"
+		style = "Secondary"
+	elseif props.playerState == "Unqueued" then
+		text = "Battle"
+		style = "Primary"
+	end
 	local child = Button({
 		onClick = onBattleClicked,
-		text = props.isQueueing and "Cancel" or "Battle",
-		style = props.isQueueing and "Secondary" or "Primary",
+		text = text,
+		style = style,
 	})
 
 	return React.createElement("Frame", {
