@@ -10,7 +10,7 @@ local Events = ReplicatedStorage:WaitForChild("Events")
 local function CoreGUIs()
 	local playerState, setPlayerState = React.useState("Unqueued")
 	local pairedPlayerName, setPairedPlayerName = React.useState("")
-
+	print(pairedPlayerName)
 	React.useEffect(function()
 		local signal: RBXScriptConnection = Events:WaitForChild("PlayerIsMatched").OnClientEvent
 			:Connect(function(player: Player)
