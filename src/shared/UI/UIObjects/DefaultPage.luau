@@ -1,16 +1,21 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Button = require(ReplicatedStorage.Shared.Components.Button)
+local Button = require(ReplicatedStorage.Shared.UI.Components.Button)
 local React = require(ReplicatedStorage.Packages.react)
 local Events = ReplicatedStorage:WaitForChild("Events")
 
 return function()
 	local isQueueing, setIsQueueing = React.useState(false)
 	local onBattleClicked = function()
-		setIsQueueing(true)
-		Events:WaitForChild("RequestBattle"):FireServer()
+		if isQueueing then
+			setIsQueueing(false)
+			Events:WaitForChild("ExitBattleRequest"):FireServer()
+		else
+			setIsQueueing(true)
+			Events:WaitForChild("RequestBattle"):FireServer()
+		end
 	end
 
-	local child = not isQueueing and Button({ onClick = onBattleClicked })
+	local child = Button({ onClick = onBattleClicked, style = isQueueing and "Secondary" or "Primary" })
 
 	return React.createElement("Frame", {
 		Position = UDim2.new(0.5, 0, 1, -10),
