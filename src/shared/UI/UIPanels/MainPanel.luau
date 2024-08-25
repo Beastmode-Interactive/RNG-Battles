@@ -3,19 +3,22 @@ local Button = require(ReplicatedStorage.Shared.UI.Components.Button)
 local React = require(ReplicatedStorage.Packages.react)
 local Events = ReplicatedStorage:WaitForChild("Events")
 
-return function()
-	local isQueueing, setIsQueueing = React.useState(false)
+return function(props)
 	local onBattleClicked = function()
-		if isQueueing then
-			setIsQueueing(false)
+		if props.isQueueing then
+			props.setIsQueueing(false)
 			Events:WaitForChild("ExitBattleRequest"):FireServer()
 		else
-			setIsQueueing(true)
+			props.setIsQueueing(true)
 			Events:WaitForChild("RequestBattle"):FireServer()
 		end
 	end
 
-	local child = Button({ onClick = onBattleClicked, style = isQueueing and "Secondary" or "Primary" })
+	local child = Button({
+		onClick = onBattleClicked,
+		text = props.isQueueing and "Cancel" or "Battle",
+		style = props.isQueueing and "Secondary" or "Primary",
+	})
 
 	return React.createElement("Frame", {
 		Position = UDim2.new(0.5, 0, 1, -10),
