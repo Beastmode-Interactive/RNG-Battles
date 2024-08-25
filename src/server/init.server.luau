@@ -1,3 +1,6 @@
+local InitialiseGame = require(script.InitialiseGame)
+InitialiseGame()
+
 local defaultProfile = {
 	cash = 0,
 	xp = 0,
@@ -7,13 +10,12 @@ local defaultProfile = {
 	},
 }
 
-local ProfileService = require(script.ProfileService)
 local MatchmakingService = require(script.MatchmakingService)
-local InitialiseGame = require(script.InitialiseGame)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ProfileService = require(ReplicatedStorage.Packages.ProfileService)
 local Players = game:GetService("Players")
-
+local Events = ReplicatedStorage:WaitForChild("Events")
 local profileStore = ProfileService.GetProfileStore("PlayerData", defaultProfile)
-
 local profiles = {}
 
 local function playerRemoved(player: Player)
@@ -50,10 +52,6 @@ end
 Players.PlayerAdded:Connect(playerAdded)
 Players.PlayerRemoving:Connect(playerRemoved)
 
-InitialiseGame()
-
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Events = ReplicatedStorage:WaitForChild("Events")
 Events:WaitForChild("RequestBattle").OnServerEvent:Connect(function(player)
 	MatchmakingService.JoinPool(player)
 end)
