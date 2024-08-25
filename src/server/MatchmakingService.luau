@@ -1,4 +1,6 @@
 local MatchmakingService = {}
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Events = ReplicatedStorage:WaitForChild("Events")
 
 MatchmakingService.Pool = {}
 MatchmakingService.PoolSize = 0
@@ -30,12 +32,14 @@ local function pairPlayers(player1: Player, player2: Player)
 	then
 		error("A player was incorrectly paired")
 	end
-
 	MatchmakingService.PendingLeave[player1] = true
 	MatchmakingService.PendingLeave[player2] = true
 	MatchmakingService.Pool[player1] = nil
 	MatchmakingService.Pool[player2] = nil
 	MatchmakingService.PoolSize -= 2
+
+	Events.PlayerIsMatched:FireClient(player1, player2)
+	Events.PlayerIsMatched:FireClient(player2, player1)
 
 	--Inform both players that they are matched
 
@@ -66,39 +70,42 @@ local function runMatchmaking()
 
 	local players = createSortedPlayersArrayFromTable(MatchmakingService.Pool)
 
-	while #players >= 2 do
-		local player1 = table.remove(players, 1) -- First player (longest waiting)
-		local bestMatch = nil
-		local bestMatchIndex = nil
-		local bestEloDifference = math.huge
+	-- while #players >= 2 do
+	-- 	local player1 = table.remove(players, 1) -- First player (longest waiting)
+	-- 	local bestMatch = nil
+	-- 	local bestMatchIndex = nil
+	-- 	local bestEloDifference = math.huge
 
-		-- Find the closest elo match among the remaining players
-		for i, player2 in ipairs(players) do
-			local eloDifference = math.abs(player1.elo - player2.elo)
+	-- 	-- Find the closest elo match among the remaining players
+	-- 	for i, player2 in ipairs(players) do
+	-- 		local eloDifference = math.abs(player1.elo - player2.elo)
 
-			-- Calculate the percentage difference relative to the lower Elo
-			local minElo = math.min(player1.elo, player2.elo)
-			local percentageDifference = (eloDifference / minElo) * 100
+	-- 		-- Calculate the percentage difference relative to the lower Elo
+	-- 		local minElo = math.min(player1.elo, player2.elo)
+	-- 		local percentageDifference = (eloDifference / minElo) * 100
 
-			-- Check if the difference is within 25% and smaller than the current best difference
-			if percentageDifference <= 25 and eloDifference < bestEloDifference then
-				bestEloDifference = eloDifference
-				bestMatch = player2
-				bestMatchIndex = i
-			end
-		end
+	-- 		-- Check if the difference is within 25% and smaller than the current best difference
+	-- 		if percentageDifference <= 25 and eloDifference < bestEloDifference then
+	-- 			bestEloDifference = eloDifference
+	-- 			bestMatch = player2
+	-- 			bestMatchIndex = i
+	-- 		end
+	-- 	end
 
-		-- If a fair pairing exists, add them to the pairs table
-		if bestMatch then
-			pairPlayers(player1.playerObject, bestMatch.playerObject)
-			table.remove(players, bestMatchIndex)
-		else
-			-- If no fair pairing was found, increment the queueTime for the player
-			MatchmakingService.Pool[player1.playerObject].queueTime = MatchmakingService.Pool[player1.playerObject].queueTime
-				+ 1
-		end
-	end
+	-- 	-- If a fair pairing exists, add them to the pairs table
+	-- 	if bestMatch then
+	-- 		pairPlayers(player1.playerObject, bestMatch.playerObject)
+	-- 		table.remove(players, bestMatchIndex)
+	-- 	else
+	-- 		-- If no fair pairing was found, increment the queueTime for the player
+	-- 		MatchmakingService.Pool[player1.playerObject].queueTime = MatchmakingService.Pool[player1.playerObject].queueTime
+	-- 			+ 1
+	-- 	end
+	-- end
 
+	local p1 = table.remove(players, 1)
+	local p2 = table.remove(players, 1)
+	pairPlayers(p1.playerObject, p2.playerObject)
 	-- Increment wait time
 	for _, player in ipairs(players) do
 		MatchmakingService.Pool[player.playerObject].queueTime = MatchmakingService.Pool[player.playerObject].queueTime
