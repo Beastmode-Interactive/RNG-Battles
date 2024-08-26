@@ -13,5 +13,3 @@ Next, open `RNG Battles.rbxlx` in Roblox Studio and start the Rojo server:
 ```bash
 rojo serve
 ```
-
-For more help, check out [the Rojo documentation](https://rojo.space/docs).
