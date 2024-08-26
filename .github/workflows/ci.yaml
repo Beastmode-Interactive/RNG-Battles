@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
     - production
+  push:
+    branches:
+    - production
 
 permissions:
   contents: write  # Grant write access to the repository contents

@@ -14,6 +14,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Rename "Dev" to "Prod" in Environment.luau if present
+        run: |
+          if grep -q "Dev" src/server/Environment.luau; then
+            echo "Renaming 'Dev' to 'Prod' in Environment.luau"
+            sed -i 's/Dev/Prod/g' src/server/Environment.luau
+          else
+            echo "'Prod' already set in Environment.luau"
+          fi
+
+
+
       - name: Check if Environment.luau contains "Prod"
         id: check_file
         run: |
