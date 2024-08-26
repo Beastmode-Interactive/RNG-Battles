@@ -11,9 +11,34 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - uses: ok-nick/setup-aftman@v0.4.2
-    - run: rojo build -o "RNG Battles.rbxl"
-    - run: rbxcloud experience publish -f "RNG Battles.rbxl" -p 18986345507 -u 6432413072 -t published -a ${{secrets.API_KEY}}
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check if Environment.luau contains "Prod"
+        id: check_file
+        run: |
+          # Check if "Prod" is present in the file
+          if grep -q "Prod" src/server/Environment.luau; then
+            echo "File contains 'Prod'"
+            echo "skip=false" >> $GITHUB_ENV
+          else
+            echo "File does not contain 'Prod'"
+            echo "skip=true" >> $GITHUB_ENV
+          fi
+
+      - name: Fail deployment if "Prod" is not present
+        if: env.skip == 'true'
+        run: |
+          echo "Deployment skipped because 'Prod' is not present in Environment.luau"
+          exit 1  # Exit with an error code to fail the job
+
+
+      - name: Setup Aftman
+        if: env.skip == 'false'
+        uses: ok-nick/setup-aftman@v0.4.2
+
+      - name: Build and Deploy
+        if: env.skip == 'false'
+        run: |
+          rojo build -o "RNG Battles.rbxl"
+          rbxcloud experience publish -f "RNG Battles.rbxl" -p 18986345507 -u 6432413072 -t published -a ${{secrets.API_KEY}}
