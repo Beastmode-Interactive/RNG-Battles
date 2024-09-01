@@ -8,6 +8,7 @@ local remoteEventNames = {
 	"RequestBattle",
 	"ExitBattleRequest",
 	"PlayerIsMatched",
+	"TeleportFailed",
 }
 
 local function createRemoteEvent(name)
