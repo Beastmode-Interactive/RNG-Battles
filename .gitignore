@@ -6,7 +6,6 @@
 /*.rbxl.lock
 *.rbxl
 api_key.txt
-/Assets
-
+Assets/
 Packages/
 ServerPackages/
