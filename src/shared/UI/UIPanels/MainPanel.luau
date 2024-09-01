@@ -1,14 +1,21 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Button = require(ReplicatedStorage.Shared.UI.Components.Button)
 local React = require(ReplicatedStorage.Packages.react)
+local SoundController = require(ReplicatedStorage.Shared.UI.SoundController)
+local LightingController = require(ReplicatedStorage.Shared.LightingController)
 local BattleRequestController = require(ReplicatedStorage.Shared.Controllers.BattleRequestController)
 
 return function(props)
 	local onBattleClicked = function()
 		if props.playerState == "Unqueued" then
+			SoundController.BlendToBattle()
+			LightingController.EnableBlur()
+
 			props.setPlayerState("Queued")
 			BattleRequestController:RequestBattle()
 		elseif props.playerState == "Queued" then
+			SoundController.BlendToLobby()
+			LightingController.DisableBlur()
 			props.setPlayerState("Unqueued")
 			BattleRequestController:ExitBattleRequest()
 		else
