@@ -1,5 +1,8 @@
+local Environment = require(script.Parent.Environment)
+local SafeTeleport = require(script.Parent.SafeTeleport)
 local MatchmakingService = {}
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TeleportService = game:GetService("TeleportService")
 local Events = ReplicatedStorage:WaitForChild("Events")
 
 MatchmakingService.Pool = {}
@@ -40,10 +43,16 @@ local function pairPlayers(player1: Player, player2: Player)
 
 	Events.PlayerIsMatched:FireClient(player1, player2)
 	Events.PlayerIsMatched:FireClient(player2, player1)
-
 	--Inform both players that they are matched
-
 	--Send both players to new server
+	local placeID: number
+	if Environment == "Dev" then
+		placeID = 83959568143265
+	else
+		placeID = 80658509347832
+	end
+	local accessCode: string = TeleportService:ReserveServer(placeID)
+	SafeTeleport(placeID, accessCode, { player1, player2 })
 end
 
 local function createSortedPlayersArrayFromTable(pool)
