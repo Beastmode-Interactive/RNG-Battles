@@ -4,6 +4,7 @@ local Themes = {
 		Primary = Color3.fromRGB(36, 231, 19),
 		Secondary = Color3.fromRGB(49, 49, 49),
 		Tertiary = Color3.fromRGB(255, 255, 255),
+		Disabled = Color3.fromRGB(20, 20, 20),
 	},
 	Text = {
 		Heading = {

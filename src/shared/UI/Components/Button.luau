@@ -17,6 +17,8 @@ return function(props)
 		buttonColour = Themes.Colours.Secondary
 	elseif props.style == "Tertiary" then
 		buttonColour = Themes.Colours.Tertiary
+	elseif props.style == "Disabled" then
+		buttonColour = Themes.Colours.Disabled
 	end
 
 	local buttonStyle = {
@@ -25,6 +27,7 @@ return function(props)
 		BackgroundColor3 = buttonColour,
 		Text = props.text,
 		Size = UDim2.new(1, 0, 0, 40),
+		Interactable = (props.style ~= "Disabled"),
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextYAlignment = Enum.TextYAlignment.Center,
 		[React.Event.Activated] = props.onClick,
