@@ -4,19 +4,19 @@ local ReactRoblox = require(ReplicatedStorage.Packages:FindFirstChild("react-rob
 local MainPanel = require(ReplicatedStorage.Shared.UI.UIPanels.MainPanel)
 local WaitingScreen = require(ReplicatedStorage.Shared.UI.UIPanels.WaitingScreen)
 local WaitingText = require(ReplicatedStorage.Shared.UI.UIPanels.WaitingText)
+local Knit = require(ReplicatedStorage.Packages.Knit)
 local Players = game:GetService("Players")
-local Events = ReplicatedStorage:WaitForChild("Events")
 
 local function CoreGUIs()
 	local playerState, setPlayerState = React.useState("Unqueued")
 	local pairedPlayerName, setPairedPlayerName = React.useState("")
 	print(pairedPlayerName)
 	React.useEffect(function()
-		local signal: RBXScriptConnection = Events:WaitForChild("PlayerIsMatched").OnClientEvent
-			:Connect(function(player: Player)
-				setPlayerState("Teleporting")
-				setPairedPlayerName(player.Name)
-			end)
+		local MatchmakingService = Knit.GetService("MatchmakingService")
+		local signal: RBXScriptConnection = MatchmakingService.PlayerIsMatched:Connect(function(player: Player)
+			setPlayerState("Teleporting")
+			setPairedPlayerName(player.Name)
+		end)
 		return function()
 			signal:Disconnect()
 		end
@@ -44,5 +44,15 @@ local function CoreGUIs()
 	})
 end
 
-local handle = ReactRoblox.createRoot(Players.LocalPlayer.PlayerGui)
-handle:render(React.createElement(CoreGUIs))
+local UIController = {
+	Name = "UIController",
+}
+
+function UIController:KnitStart()
+	local handle = ReactRoblox.createRoot(Players.LocalPlayer.PlayerGui)
+	handle:render(React.createElement(CoreGUIs))
+end
+
+function UIController:KnitInit() end
+
+return UIController

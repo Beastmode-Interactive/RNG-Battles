@@ -8,3 +8,7 @@ realm = "shared"
 react = "jsdotlua/react@17.1.0"
 react-roblox = "jsdotlua/react-roblox@17.1.0"
 dash = "ukendio/dash@0.1.9"
+Knit = "sleitnick/knit@^1.7"
+
+[server-dependencies]
+profileservice = "firebird702/profileservice@1.1.0"
