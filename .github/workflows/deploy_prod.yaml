@@ -48,6 +48,15 @@ jobs:
         if: env.skip == 'false'
         uses: ok-nick/setup-aftman@v0.4.2
 
+      - name: Install Wally
+        if: env.skip == 'false'
+        run: |
+          curl -fsSL https://github.com/UpliftGames/wally/releases/latest/download/wally-linux.zip -o wally.zip
+          unzip wally.zip -d wally
+          sudo mv wally/wally /usr/local/bin
+          wally install
+
+
       - name: Build and Deploy
         if: env.skip == 'false'
         run: |
