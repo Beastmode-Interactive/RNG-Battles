@@ -18,7 +18,7 @@ jobs:
         id: check_file
         run: |
           # Check if "Dev" is present in the file
-          if grep -q "Dev" src/server/Environment.luau; then
+          if grep -q "Dev" src/shared/Environment.luau; then
             echo "File contains 'Dev'"
             echo "skip=false" >> $GITHUB_ENV
           else

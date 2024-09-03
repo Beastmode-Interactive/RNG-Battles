@@ -1,16 +1,16 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Button = require(ReplicatedStorage.Shared.UI.Components.Button)
 local React = require(ReplicatedStorage.Packages.react)
-local Events = ReplicatedStorage:WaitForChild("Events")
+local BattleRequestController = require(ReplicatedStorage.Shared.Controllers.BattleRequestController)
 
 return function(props)
 	local onBattleClicked = function()
 		if props.playerState == "Unqueued" then
 			props.setPlayerState("Queued")
-			Events:WaitForChild("RequestBattle"):FireServer()
+			BattleRequestController:RequestBattle()
 		elseif props.playerState == "Queued" then
 			props.setPlayerState("Unqueued")
-			Events:WaitForChild("ExitBattleRequest"):FireServer()
+			BattleRequestController:ExitBattleRequest()
 		else
 			error("Player tried to interact with battle button after teleportation began")
 		end

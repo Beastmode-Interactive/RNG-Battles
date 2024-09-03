@@ -1,48 +1,54 @@
-local Environment = require(script.Parent.Environment)
-local SafeTeleport = require(script.Parent.SafeTeleport)
-local MatchmakingService = {}
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Knit = require(ReplicatedStorage.Packages.Knit)
+local Environment = require(ReplicatedStorage.Shared.Environment)
+local ServerScriptService = game:GetService("ServerScriptService")
+local SafeTeleportService = require(ServerScriptService.Server.Services.SafeTeleportService)
 local TeleportService = game:GetService("TeleportService")
-local Events = ReplicatedStorage:WaitForChild("Events")
 
-MatchmakingService.Pool = {}
-MatchmakingService.PoolSize = 0
-MatchmakingService.PendingLeave = {}
+local MatchmakingService = {
+	Name = "MatchmakingService",
+	Client = {
+		PlayerIsMatched = Knit.CreateSignal(),
+	},
+	Pool = {},
+	PoolSize = 0,
+	PendingLeave = {},
+}
 
-local function isPlayerInPool(player: Player)
-	return MatchmakingService.Pool[player] ~= nil
+function MatchmakingService:isPlayerInPool(player: Player)
+	return self.Pool[player] ~= nil
 end
-local function isPlayerPendingLeave(player: Player)
-	return MatchmakingService.PendingLeave[player] ~= nil
+function MatchmakingService:isPlayerPendingLeave(player: Player)
+	return self.PendingLeave[player] ~= nil
 end
 
-function MatchmakingService.ClearPlayerFromMemory(player: Player)
-	if isPlayerInPool(player) then
-		MatchmakingService.Pool[player] = nil
-		MatchmakingService.PoolSize -= 1
+function MatchmakingService:ClearPlayerFromMemory(player: Player)
+	if self:isPlayerInPool(player) then
+		self.Pool[player] = nil
+		self.PoolSize -= 1
 	end
-	if isPlayerPendingLeave(player) then
-		MatchmakingService.PendingLeave[player] = nil
+	if self:isPlayerPendingLeave(player) then
+		self.PendingLeave[player] = nil
 	end
 end
 
-local function pairPlayers(player1: Player, player2: Player)
+function MatchmakingService:pairPlayers(player1: Player, player2: Player)
 	if
-		not isPlayerInPool(player1)
-		or not isPlayerInPool(player2)
-		or isPlayerPendingLeave(player1)
-		or isPlayerPendingLeave(player2)
+		not self:isPlayerInPool(player1)
+		or not self:isPlayerInPool(player2)
+		or self:isPlayerPendingLeave(player1)
+		or self:isPlayerPendingLeave(player2)
 	then
 		error("A player was incorrectly paired")
 	end
-	MatchmakingService.PendingLeave[player1] = true
-	MatchmakingService.PendingLeave[player2] = true
-	MatchmakingService.Pool[player1] = nil
-	MatchmakingService.Pool[player2] = nil
-	MatchmakingService.PoolSize -= 2
+	self.PendingLeave[player1] = true
+	self.PendingLeave[player2] = true
+	self.Pool[player1] = nil
+	self.Pool[player2] = nil
+	self.PoolSize -= 2
 
-	Events.PlayerIsMatched:FireClient(player1, player2)
-	Events.PlayerIsMatched:FireClient(player2, player1)
+	self.Client.PlayerIsMatched:Fire(player1, player2)
+	self.Client.PlayerIsMatched:Fire(player2, player1)
 	--Inform both players that they are matched
 	--Send both players to new server
 	local placeID: number
@@ -52,7 +58,7 @@ local function pairPlayers(player1: Player, player2: Player)
 		placeID = 80658509347832
 	end
 	local accessCode: string = TeleportService:ReserveServer(placeID)
-	SafeTeleport(placeID, accessCode, { player1, player2 })
+	SafeTeleportService:SafeTeleport(placeID, accessCode, { player1, player2 })
 end
 
 local function createSortedPlayersArrayFromTable(pool)
@@ -72,12 +78,12 @@ local function createSortedPlayersArrayFromTable(pool)
 end
 
 --this needs some work....
-local function runMatchmaking()
-	if MatchmakingService.PoolSize <= 1 then
+function MatchmakingService:runMatchmaking()
+	if self.PoolSize <= 1 then
 		return
 	end
 
-	local players = createSortedPlayersArrayFromTable(MatchmakingService.Pool)
+	local players = createSortedPlayersArrayFromTable(self.Pool)
 
 	-- while #players >= 2 do
 	-- 	local player1 = table.remove(players, 1) -- First player (longest waiting)
@@ -114,36 +120,38 @@ local function runMatchmaking()
 
 	local p1 = table.remove(players, 1)
 	local p2 = table.remove(players, 1)
-	pairPlayers(p1.playerObject, p2.playerObject)
+	self:pairPlayers(p1.playerObject, p2.playerObject)
 	-- Increment wait time
 	for _, player in ipairs(players) do
-		MatchmakingService.Pool[player.playerObject].queueTime = MatchmakingService.Pool[player.playerObject].queueTime
-			+ 1
+		self.Pool[player.playerObject].queueTime = self.Pool[player.playerObject].queueTime + 1
 	end
 
 	return
 end
 
-function MatchmakingService.JoinPool(player: Player)
-	if isPlayerInPool(player) then
+function MatchmakingService.Client:JoinPool(player: Player)
+	if self.Server:isPlayerInPool(player) then
 		error("Player is already in pool")
 	end
-
-	MatchmakingService.Pool[player] = { elo = 1, queueTime = 1 }
-	MatchmakingService.PoolSize += 1
-	runMatchmaking()
+	self.Server.Pool[player] = { elo = 1, queueTime = 1 }
+	self.Server.PoolSize += 1
+	self.Server:runMatchmaking()
 end
 
-function MatchmakingService.ExitPool(player: Player)
-	if not isPlayerInPool(player) then
+function MatchmakingService.Client:ExitPool(player: Player)
+	if not self.Server:isPlayerInPool(player) then
 		error("Player is not in pool")
 	end
-	if isPlayerPendingLeave(player) then
+	if self.Server:isPlayerPendingLeave(player) then
 		error("Player cannot leave pool as is pending teleport")
 	end
 
-	MatchmakingService.Pool[player] = nil
-	MatchmakingService.PoolSize -= 1
+	self.Server.Pool[player] = nil
+	self.Server.PoolSize -= 1
 end
+
+function MatchmakingService:KnitStart() end
+
+function MatchmakingService:KnitInit() end
 
 return MatchmakingService

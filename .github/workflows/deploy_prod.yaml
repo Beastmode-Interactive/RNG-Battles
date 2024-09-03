@@ -16,9 +16,9 @@ jobs:
 
       - name: Rename "Dev" to "Prod" in Environment.luau if present
         run: |
-          if grep -q "Dev" src/server/Environment.luau; then
+          if grep -q "Dev" src/shared/Environment.luau; then
             echo "Renaming 'Dev' to 'Prod' in Environment.luau"
-            sed -i 's/Dev/Prod/g' src/server/Environment.luau
+            sed -i 's/Dev/Prod/g' src/shared/Environment.luau
           else
             echo "'Prod' already set in Environment.luau"
           fi
@@ -29,7 +29,7 @@ jobs:
         id: check_file
         run: |
           # Check if "Prod" is present in the file
-          if grep -q "Prod" src/server/Environment.luau; then
+          if grep -q "Prod" src/shared/Environment.luau; then
             echo "File contains 'Prod'"
             echo "skip=false" >> $GITHUB_ENV
           else
