@@ -12,6 +12,3 @@ Knit = "sleitnick/knit@^1.7"
 
 [server-dependencies]
 profileservice = "firebird702/profileservice@1.1.0"
-
-[dev-dependencies]
-JestGlobals = "jsdotlua/jest-globals@3.6.1-rc.2"
