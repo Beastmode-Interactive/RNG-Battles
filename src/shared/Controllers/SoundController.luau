@@ -1,5 +1,5 @@
 local SoundController = {
-	name = "SoundController",
+	Name = "SoundController",
 }
 
 local SoundService = game:GetService("SoundService")
