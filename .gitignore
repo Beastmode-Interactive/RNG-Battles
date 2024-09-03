@@ -1,9 +1,13 @@
 # Project place file
 /RNG Battles.rbxlx
-
+/RNG Battles.rbxl
 # Roblox Studio lock files
 /*.rbxlx.lock
 /*.rbxl.lock
 *.rbxl
 api_key.txt
 /Assets
+
+/Packages
+/ServerPackages
+/DevPackages
