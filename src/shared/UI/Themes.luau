@@ -5,6 +5,10 @@ local Themes = {
 		Secondary = Color3.fromRGB(49, 49, 49),
 		Tertiary = Color3.fromRGB(255, 255, 255),
 		Disabled = Color3.fromRGB(20, 20, 20),
+		Background = Color3.fromRGB(240, 247, 255),
+		ProgressBackground = Color3.fromRGB(164, 176, 192),
+		ProgressPrimary = Color3.fromRGB(85, 151, 251),
+		BorderColour = Color3.fromRGB(13, 26, 1),
 	},
 	Text = {
 		Heading = {
