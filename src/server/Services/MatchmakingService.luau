@@ -22,27 +22,43 @@ local MatchmakingService = {
 
 local function PerformMatchmaking()
 	while true do
-		local longestWaitingPlayers = MatchmakingQueue:GetRangeAsync(Enum.SortDirection.Descending, 2)
+		local longestWaitingPlayers = {}
+		local success, result = pcall(function()
+			longestWaitingPlayers = MatchmakingQueue:GetRangeAsync(Enum.SortDirection.Ascending, 2)
+		end)
+		if not success then
+			warn(string.format("Failed to fetch data from matchmakingQueue: %s", result))
+			continue
+		end
 		if #longestWaitingPlayers ~= 2 then
 			break
 		end
 		local accessCode: string
-		pcall(function()
+		success, result = pcall(function()
 			accessCode = TeleportService:ReserveServer(placeID)
 		end)
+		if not success then
+			warn(string.format("Failed to reserve new server because: %s", result))
+			continue
+		end
 		local data = {
 			accessCode = accessCode,
 			player1Id = longestWaitingPlayers[1].key,
 			player2Id = longestWaitingPlayers[2].key,
 		}
-		MatchmakingQueue:RemoveAsync(longestWaitingPlayers[1].key)
-		MatchmakingQueue:RemoveAsync(longestWaitingPlayers[2].key)
+		success, result = pcall(function()
+			MatchmakingQueue:RemoveAsync(longestWaitingPlayers[1].key)
+			MatchmakingQueue:RemoveAsync(longestWaitingPlayers[2].key)
+		end)
+		if not success then
+			warn(string.format("Unable to remove waiting players from queue: %s", result))
+		end
 		MessagingService:PublishAsync("SendPlayersToServer", HttpService:JSONEncode(data))
 	end
 end
 
 function MatchmakingService.Client:JoinPool(player: Player)
-	MatchmakingQueue:SetAsync(tostring(player.UserId), true, 86400, 10)
+	MatchmakingQueue:SetAsync(tostring(player.UserId), true, 86400, time())
 end
 
 function MatchmakingService.Client:ExitPool(player: Player)
