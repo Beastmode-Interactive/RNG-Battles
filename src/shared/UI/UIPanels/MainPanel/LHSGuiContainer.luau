@@ -3,10 +3,6 @@ local React = require(ReplicatedStorage.Packages.react)
 local IconButton = require(ReplicatedStorage.Shared.UI.Components.IconButton)
 local Themes = require(ReplicatedStorage.Shared.UI.Themes)
 
-local function onClick()
-	return true
-end
-
 return function(props)
 	return React.createElement("Frame", {
 		Position = UDim2.new(0, if props.isMobile then 10 else 20, 1, if props.isMobile then -10 else -20),
