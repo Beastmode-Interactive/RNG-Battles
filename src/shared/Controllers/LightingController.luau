@@ -3,11 +3,7 @@ local TweenService = game:GetService("TweenService")
 local LightingController = {
 	Name = "LightingController",
 }
-
-local Blur = Instance.new("BlurEffect")
-Blur.Parent = Lighting
-Blur.Enabled = false
-Blur.Size = 0
+local Blur
 
 function LightingController:EnableBlur()
 	local InBlur = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
@@ -22,7 +18,12 @@ function LightingController:DisableBlur()
 	Tween:Play()
 end
 
-function LightingController:KnitStart() end
+function LightingController:KnitStart()
+	Blur = Instance.new("BlurEffect")
+	Blur.Enabled = false
+	Blur.Size = 0
+	Blur.Parent = Lighting
+end
 
 function LightingController:KnitInit() end
 
