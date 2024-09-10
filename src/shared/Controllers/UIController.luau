@@ -16,6 +16,7 @@ local TradingPanel = require(ReplicatedStorage.Shared.UI.UIPanels.TradingPanel)
 local IndexPanel = require(ReplicatedStorage.Shared.UI.UIPanels.IndexPanel)
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+
 local function CoreGUIs()
 	local playerState, setPlayerState = React.useState("Unqueued")
 	local isMobile, setIsMobile = React.useState(false)
@@ -104,8 +105,10 @@ local UIController = {
 }
 
 function UIController:KnitStart()
-	local handle = ReactRoblox.createRoot(Players.LocalPlayer.PlayerGui)
-	handle:render(React.createElement(CoreGUIs))
+	local handle = Instance.new("Folder")
+	handle.Parent = Players.LocalPlayer.PlayerGui
+	local root = ReactRoblox.createRoot(handle)
+	root:render(React.createElement(CoreGUIs))
 end
 
 function UIController:KnitInit() end
