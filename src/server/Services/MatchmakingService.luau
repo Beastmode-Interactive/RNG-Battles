@@ -95,7 +95,7 @@ function MatchmakingService:KnitStart()
 	if not success then
 		warn(string.format("Failed to subscribe to messaging topic because: %s", result))
 	end
-	LeaderElection.startLoop("PerformMatchmaking", 5, PerformMatchmaking)
+	LeaderElection.startLoop("PerformMatchmaking", 2, PerformMatchmaking)
 end
 
 function MatchmakingService:KnitInit() end
