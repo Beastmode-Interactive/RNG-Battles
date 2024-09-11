@@ -50,27 +50,28 @@ return function()
 
 	local openScreen = nil
 	if currentlyOpenScreen == "Settings" then
-		openScreen = SettingsPanel({ isMobile = isMobile })
+		openScreen = React.createElement(SettingsPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "Inventory" then
-		openScreen = InventoryPanel({ isMobile = isMobile })
+		openScreen = React.createElement(InventoryPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "Shop" then
-		openScreen = ShopPanel({ isMobile = isMobile })
+		openScreen = React.createElement(ShopPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "Crafting" then
-		openScreen = CraftingPanel({ isMobile = isMobile })
+		openScreen = React.createElement(CraftingPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "QuestsBattlepass" then
-		openScreen = QuestsBattlepassPanel({ isMobile = isMobile })
+		openScreen = React.createElement(QuestsBattlepassPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "Stats" then
-		openScreen = StatsPanel({ isMobile = isMobile })
+		openScreen = React.createElement(StatsPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "Guilds" then
-		openScreen = GuildsPanel({ isMobile = isMobile })
+		openScreen = React.createElement(GuildsPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "Trading" then
-		openScreen = TradingPanel({ isMobile = isMobile })
+		openScreen = React.createElement(TradingPanel, { isMobile = isMobile })
 	elseif currentlyOpenScreen == "Index" then
-		openScreen = IndexPanel({ isMobile = isMobile })
+		openScreen = React.createElement(IndexPanel, { isMobile = isMobile })
 	end
+
 	return {
 		if playerState ~= "Teleporting"
-			then MainPanel({
+			then React.createElement(MainPanel, {
 				isMobile = isMobile,
 				playerState = playerState,
 				setPlayerState = setPlayerState,
@@ -78,7 +79,7 @@ return function()
 				currentlyOpenScreen = currentlyOpenScreen,
 			})
 			else nil,
-		if playerState == "Queued" then WaitingText() else nil,
+		if playerState == "Queued" then React.createElement(WaitingText) else nil,
 		openScreen,
 	}
 end

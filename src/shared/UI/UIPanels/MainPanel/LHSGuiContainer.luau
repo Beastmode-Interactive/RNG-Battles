@@ -60,7 +60,7 @@ return function(props)
 					Size = UDim2.new(0, 1, 1, -8),
 
 					Text = "Level/XP",
-					BackgroundColor3 = Themes.Colours.ProgressBackground,
+					BackgroundColor3 = Themes.Colours.Blue300,
 					BorderSizePixel = 0,
 				}, {
 					React.createElement("UIFlexItem", {
@@ -112,55 +112,55 @@ return function(props)
 				CellSize = UDim2.new(0, if props.isMobile then 40 else 80, 0, if props.isMobile then 40 else 80),
 				CellPadding = UDim2.new(0, 0, 0, 0),
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Settings")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Inventory")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Shop")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Crafting")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("QuestsBattlepass")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Stats")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Guilds")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Trading")
 				end,
 				icon = "rbxassetid://15736249725",
 			}),
-			IconButton({
+			React.createElement(IconButton, {
 				onClick = function()
 					props.setCurrentlyOpenScreen("Index")
 				end,
@@ -174,7 +174,7 @@ return function(props)
 				React.createElement("TextLabel", {
 					Size = UDim2.new(1, 0, 1, 0),
 					Text = "Status Effects",
-					BackgroundColor3 = Themes.Colours.Background,
+					BackgroundColor3 = Themes.Colours.Blue100,
 					BorderSizePixel = 0,
 				}),
 			}

@@ -9,7 +9,7 @@ local LeaderElection = require(ServerScriptService.Server.Services.LeaderElectio
 local HttpService = game:GetService("HttpService")
 local MessagingService = game:GetService("MessagingService")
 local TeleportService = game:GetService("TeleportService")
-local MatchmakingQueue = MemoryStoreService:GetSortedMap("MatchmakingQueue")
+local MatchmakingQueue
 
 local placeID: number
 
@@ -58,18 +58,31 @@ local function PerformMatchmaking()
 end
 
 function MatchmakingService.Client:JoinPool(player: Player)
-	MatchmakingQueue:SetAsync(tostring(player.UserId), true, 86400, time())
+	pcall(function()
+		MatchmakingQueue:SetAsync(tostring(player.UserId), true, 86400, time())
+	end)
 end
 
 function MatchmakingService.Client:ExitPool(player: Player)
-	MatchmakingQueue:RemoveAsync(player.UserId)
+	pcall(function()
+		MatchmakingQueue:RemoveAsync(player.UserId)
+	end)
 end
 
 function MatchmakingService:OnPlayerRemoved(player: Player)
-	MatchmakingQueue:RemoveAsync(player.UserId)
+	pcall(function()
+		MatchmakingQueue:RemoveAsync(player.UserId)
+	end)
 end
 
 function MatchmakingService:KnitStart()
+	local getQueueSuccess, response = pcall(function()
+		MatchmakingQueue = MemoryStoreService:GetSortedMap("MatchmakingQueue")
+	end)
+	if not getQueueSuccess then
+		warn(response)
+	end
+
 	if Environment == "Dev" then
 		placeID = 83959568143265
 	else
