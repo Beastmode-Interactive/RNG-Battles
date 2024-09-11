@@ -42,13 +42,13 @@ return function(props)
 				Size = UDim2.new(0, 300, 0, 40),
 				BackgroundTransparency = 1,
 			},
-			Button({
+			React.createElement(Button, {
 				onClick = onBattleClicked,
 				text = text,
 				style = style,
 			})
 		),
-		LHSGuiContainer({
+		React.createElement(LHSGuiContainer, {
 			currentlyOpenScreen = props.currentlyOpenScreen,
 			setCurrentlyOpenScreen = props.setCurrentlyOpenScreen,
 			isMobile = props.isMobile,
