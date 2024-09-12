@@ -8,79 +8,97 @@ return function(props)
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
 				print("Clicked")
 			end,
-			icon = "rbxassetid://15736249725",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			icon = "rbxassetid://15736249725",
+			type = "Crafting",
+			itemId = 1,
+			icon = "",
 		}),
 	}
 
