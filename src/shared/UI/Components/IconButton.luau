@@ -25,6 +25,7 @@ return function(props)
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		React.createElement("ImageButton", {
 			Position = UDim2.new(0.5, 0, 0.5, 0),
