@@ -70,14 +70,11 @@ return function(props)
 					React.createElement("UIFlexItem", {
 						FlexMode = Enum.UIFlexMode.Grow,
 					}),
-					React.createElement(
-						"UIStroke",
-						{
-							Thickness = if props.isMobile then 1 else 2,
-							Color = Themes.Colours.Blue800,
-							ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-						}
-					),
+					React.createElement("UIStroke", {
+						Thickness = if props.isMobile then 1 else 2,
+						Color = Themes.Colours.Blue800,
+						ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+					}),
 				}),
 			}),
 			React.createElement("Frame", {

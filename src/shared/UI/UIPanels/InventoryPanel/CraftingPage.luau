@@ -11,6 +11,7 @@ return function(props)
 			type = "Crafting",
 			itemId = 1,
 			icon = "",
+			isMobile = props.isMobile,
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
@@ -19,6 +20,7 @@ return function(props)
 			type = "Crafting",
 			itemId = 1,
 			icon = "",
+			isMobile = props.isMobile,
 		}),
 		React.createElement(InventoryItem, {
 			onClick = function()
@@ -27,80 +29,9 @@ return function(props)
 			type = "Crafting",
 			itemId = 1,
 			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
-		}),
-		React.createElement(InventoryItem, {
-			onClick = function()
-				print("Clicked")
-			end,
-			type = "Crafting",
-			itemId = 1,
-			icon = "",
+			isMobile = props.isMobile,
 		}),
 	}
 
-	return React.createElement(ScrollingInventoryFrame, { InventoryItems = InventoryItems })
+	return React.createElement(ScrollingInventoryFrame, { InventoryItems = InventoryItems, isMobile = props.isMobile })
 end
