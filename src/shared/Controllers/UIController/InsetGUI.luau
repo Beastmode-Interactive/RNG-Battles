@@ -1,8 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.react)
-local ReactRoblox = require(ReplicatedStorage.Packages:FindFirstChild("react-roblox"))
 local MainPanel = require(ReplicatedStorage.Shared.UI.UIPanels.MainPanel)
-local WaitingScreen = require(ReplicatedStorage.Shared.UI.UIPanels.WaitingScreen)
 local WaitingText = require(ReplicatedStorage.Shared.UI.UIPanels.WaitingText)
 local Knit = require(ReplicatedStorage.Packages.Knit)
 local SettingsPanel = require(ReplicatedStorage.Shared.UI.UIPanels.SettingsPanel)
@@ -14,10 +12,8 @@ local StatsPanel = require(ReplicatedStorage.Shared.UI.UIPanels.StatsPanel)
 local GuildsPanel = require(ReplicatedStorage.Shared.UI.UIPanels.GuildsPanel)
 local TradingPanel = require(ReplicatedStorage.Shared.UI.UIPanels.TradingPanel)
 local IndexPanel = require(ReplicatedStorage.Shared.UI.UIPanels.IndexPanel)
-local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-
-local function CoreGUIs()
+return function()
 	local playerState, setPlayerState = React.useState("Unqueued")
 	local isMobile, setIsMobile = React.useState(false)
 	local currentlyOpenScreen, setCurrentlyOpenScreen = React.useState("None")
@@ -72,45 +68,17 @@ local function CoreGUIs()
 	elseif currentlyOpenScreen == "Index" then
 		openScreen = IndexPanel({ isMobile = isMobile })
 	end
-	return React.createElement("Folder", {}, {
-		{
-			React.createElement(
-				"ScreenGui",
-				{ ResetOnSpawn = false, DisplayOrder = 1, ScreenInsets = Enum.ScreenInsets.None },
-				{ if playerState == "Teleporting" then WaitingScreen() else nil }
-			),
-			React.createElement(
-				"ScreenGui",
-				{ ResetOnSpawn = false, DisplayOrder = 2, ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets },
-				{
-					if playerState ~= "Teleporting"
-						then MainPanel({
-							isMobile = isMobile,
-							playerState = playerState,
-							setPlayerState = setPlayerState,
-							setCurrentlyOpenScreen = setCurrentlyOpenScreenHandler,
-							currentlyOpenScreen = currentlyOpenScreen,
-						})
-						else nil,
-					if playerState == "Queued" then WaitingText() else nil,
-					openScreen,
-				}
-			),
-		},
-	})
+	return {
+		if playerState ~= "Teleporting"
+			then MainPanel({
+				isMobile = isMobile,
+				playerState = playerState,
+				setPlayerState = setPlayerState,
+				setCurrentlyOpenScreen = setCurrentlyOpenScreenHandler,
+				currentlyOpenScreen = currentlyOpenScreen,
+			})
+			else nil,
+		if playerState == "Queued" then WaitingText() else nil,
+		openScreen,
+	}
 end
-
-local UIController = {
-	Name = "UIController",
-}
-
-function UIController:KnitStart()
-	local handle = Instance.new("Folder")
-	handle.Parent = Players.LocalPlayer.PlayerGui
-	local root = ReactRoblox.createRoot(handle)
-	root:render(React.createElement(CoreGUIs))
-end
-
-function UIController:KnitInit() end
-
-return UIController
