@@ -13,14 +13,16 @@ function UIController:KnitStart()
 	handle.Parent = Players.LocalPlayer.PlayerGui
 	handle.ResetOnSpawn = false
 	handle.ScreenInsets = Enum.ScreenInsets.None
+	handle.DisplayOrder = 2
 	local root = ReactRoblox.createRoot(handle)
 	root:render(React.createElement(FullscreenGUI))
 
 	local handle2 = Instance.new("ScreenGui")
 	handle2.Parent = Players.LocalPlayer.PlayerGui
 	handle2.ResetOnSpawn = false
-	handle2.ScreenInsets = Enum.ScreenInsets.None
-	local root2 = ReactRoblox.createRoot(handle)
+	handle2.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
+	handle2.DisplayOrder = 3
+	local root2 = ReactRoblox.createRoot(handle2)
 	root2:render(React.createElement(InsetGUI))
 end
 
