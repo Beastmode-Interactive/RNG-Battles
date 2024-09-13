@@ -8,11 +8,11 @@ return function()
 
 	React.useEffect(function()
 		local MatchmakingService = Knit.GetService("MatchmakingService")
-		local signal: RBXScriptConnection = MatchmakingService.PlayerIsMatched:Connect(function()
+		local playerIsMatchedSignal: RBXScriptConnection = MatchmakingService.PlayerIsMatched:Connect(function()
 			setPlayerState("Teleporting")
 		end)
 		return function()
-			signal:Disconnect()
+			playerIsMatchedSignal:Disconnect()
 		end
 	end, {})
 

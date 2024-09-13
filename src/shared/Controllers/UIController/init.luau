@@ -9,21 +9,21 @@ local UIController = {
 }
 
 function UIController:KnitStart()
-	local handle = Instance.new("ScreenGui")
-	handle.Parent = Players.LocalPlayer.PlayerGui
-	handle.ResetOnSpawn = false
-	handle.ScreenInsets = Enum.ScreenInsets.None
-	handle.DisplayOrder = 2
-	local root = ReactRoblox.createRoot(handle)
-	root:render(React.createElement(FullscreenGUI))
+	local fullscreenHandle = Instance.new("ScreenGui")
+	fullscreenHandle.Parent = Players.LocalPlayer.PlayerGui
+	fullscreenHandle.ResetOnSpawn = false
+	fullscreenHandle.ScreenInsets = Enum.ScreenInsets.None
+	fullscreenHandle.DisplayOrder = 2
+	local fullscreenRoot = ReactRoblox.createRoot(fullscreenHandle)
+	fullscreenRoot:render(React.createElement(FullscreenGUI))
 
-	local handle2 = Instance.new("ScreenGui")
-	handle2.Parent = Players.LocalPlayer.PlayerGui
-	handle2.ResetOnSpawn = false
-	handle2.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
-	handle2.DisplayOrder = 3
-	local root2 = ReactRoblox.createRoot(handle2)
-	root2:render(React.createElement(InsetGUI))
+	local insetHandle = Instance.new("ScreenGui")
+	insetHandle.Parent = Players.LocalPlayer.PlayerGui
+	insetHandle.ResetOnSpawn = false
+	insetHandle.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
+	insetHandle.DisplayOrder = 3
+	local insetRoot = ReactRoblox.createRoot(insetHandle)
+	insetRoot:render(React.createElement(InsetGUI))
 end
 
 function UIController:KnitInit() end
