@@ -6,6 +6,8 @@ local translator = nil
 
 local AnimateUI = {}
 
+AnimateUI.objectStatus = {}
+
 function AnimateUI.loadTranslator()
 	pcall(function()
 		translator = LocalizationService:GetTranslatorForPlayerAsync(Players.LocalPlayer)
@@ -17,48 +19,49 @@ function AnimateUI.loadTranslator()
 	end
 end
 
-function AnimateUI.typeWrite(guiObject, text, delayBetweenChars)
-	print("Typewriting")
-	guiObject.Visible = true
+function AnimateUI:typeWrite(guiObject, text, delayBetweenChars)
+	self.objectStatus[guiObject] = "Opening"
 	guiObject.AutoLocalize = false
 	local displayText = text
 
-	-- Translate text if possible
 	if translator then
 		displayText = translator:Translate(guiObject, text)
 	end
 
-	-- Replace line break tags so grapheme loop will not miss those characters
 	displayText = displayText:gsub("<br%s*/>", "\n")
-	-- Remove RichText tags since char-by-char animation will break the tags
 	displayText = displayText:gsub("<[^<>]->", "")
-
-	-- Set translated/modified text on parent
 	guiObject.Text = displayText
 
-	local index = 0
-	for _, _ in utf8.graphemes(displayText) do
-		index += 2
-		guiObject.MaxVisibleGraphemes = index
-		task.wait(delayBetweenChars)
-	end
-end
-
-function AnimateUI.unTypeWrite(guiObject, delayBetweenChars)
 	local len = 0
 	for _, _ in utf8.graphemes(guiObject.Text) do
 		len += 1
 	end
-	for i = len, 0, -1 do
-		if i == -1 then
-			guiObject.MaxVisibleGraphemes = 0
-		else
-			guiObject.MaxVisibleGraphemes = i
+	for i = guiObject.MaxVisibleGraphemes, len do
+		if self.objectStatus[guiObject] == "Closing" then
+			return
 		end
+		guiObject.MaxVisibleGraphemes = i
+		task.wait(delayBetweenChars)
+	end
+	if self.objectStatus[guiObject] == "Opening" then
+		self.objectStatus[guiObject] = "Opened"
+	end
+end
+
+function AnimateUI:unTypeWrite(guiObject, delayBetweenChars)
+	self.objectStatus[guiObject] = "Closing"
+	for i = guiObject.MaxVisibleGraphemes, 0, -1 do
+		if self.objectStatus[guiObject] == "Opening" then
+			return
+		end
+		guiObject.MaxVisibleGraphemes = i
 
 		task.wait(delayBetweenChars)
 	end
-	guiObject.Text = ""
+	if self.objectStatus[guiObject] == "Closing" then
+		guiObject.Text = ""
+		self.objectStatus[guiObject] = "Closed"
+	end
 end
 
 return AnimateUI

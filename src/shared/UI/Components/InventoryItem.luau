@@ -33,10 +33,10 @@ return function(props)
 			end
 		end
 
-		local signal2: RBXScriptConnection = UserInputService.InputChanged:Connect(updateMousePosition)
+		local mousePositionSignal: RBXScriptConnection = UserInputService.InputChanged:Connect(updateMousePosition)
 
 		return function()
-			signal2:Disconnect()
+			mousePositionSignal:Disconnect()
 		end
 	end, {})
 

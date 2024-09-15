@@ -32,6 +32,5 @@ return function(props)
 			isMobile = props.isMobile,
 		}),
 	}
-
 	return React.createElement(ScrollingInventoryFrame, { InventoryItems = InventoryItems, isMobile = props.isMobile })
 end
