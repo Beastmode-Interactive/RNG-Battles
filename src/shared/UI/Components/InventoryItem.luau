@@ -64,29 +64,26 @@ return function(props)
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = UDim2.new(1, -5, 1, -5),
+			Active = if props.disabled then false else true,
 			[React.Event.Activated] = props.onClick,
 			[React.Event.MouseEnter] = onMouseEnter,
 			[React.Event.MouseLeave] = onMouseLeave,
 			AutoButtonColor = false,
 			Image = props.icon,
 			ref = parentFrameRef,
+			BackgroundTransparency = 1,
 			ZIndex = if tooltipActive then 10 else 7,
 		}, {
 
 			if tooltipActive
 				then React.createElement(Tooltip, {
+					ItemName = props.name,
+					ItemDescription = props.description,
+					ItemRarity = props.rarity,
 					Rotation = sensibleRotation,
 					Position = UDim2.new(0, mousePosition.X + 30, 0, mousePosition.Y + 30),
 				})
 				else nil,
-
-			React.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
-			React.createElement("UIStroke", {
-				Thickness = 3,
-				Color = Themes.Colours.Blue800,
-			}),
 
 			React.createElement(
 				"TextLabel",
@@ -96,7 +93,7 @@ return function(props)
 					AutomaticSize = Enum.AutomaticSize.XY,
 					TextXAlignment = Enum.TextXAlignment.Right,
 					TextYAlignment = Enum.TextYAlignment.Top,
-					Text = "12",
+					Text = tostring(props.numberOfItems),
 					ZIndex = 20,
 					BackgroundTransparency = 1,
 				}),

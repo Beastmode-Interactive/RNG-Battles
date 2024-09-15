@@ -20,7 +20,7 @@ return function(props)
 	local quantityButtonRef = React.useRef()
 	local alphabeticalButtonRef = React.useRef()
 	local currentPage, setCurrentPage = React.useState(0)
-	local currentSort, setCurrentSort = React.useState(0)
+	local currentSort, setCurrentSort = React.useState("Rarity")
 
 	local swapPages = function(page)
 		setCurrentPage(page)
@@ -49,7 +49,7 @@ return function(props)
 			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
 			ImageTransparency = 0.5,
-			Image = "http://www.roblox.com/asset/?id=93425279586528",
+			Image = "http://www.roblox.com/asset/?id=100877265561001",
 			ZIndex = 5,
 		}),
 
@@ -71,7 +71,7 @@ return function(props)
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(CraftingPage, { isMobile = props.isMobile }) }
+						{ React.createElement(CraftingPage, { sortType = currentSort, isMobile = props.isMobile }) }
 					),
 					React.createElement(
 						InventoryPageWrapper,
@@ -106,45 +106,45 @@ return function(props)
 				CornerRadius = UDim.new(0, 32),
 			}),
 			React.createElement(ButtonWithTextTooltip, {
-				selected = currentSort == 0,
+				selected = currentSort == "Rarity",
 				onClick = function()
-					swapSorts(0)
+					swapSorts("Rarity")
 				end,
 				Position = UDim2.new(0, 16, 0, 56),
-				Image = "http://www.roblox.com/asset/?id=77739754042364",
+				Image = "http://www.roblox.com/asset/?id=83245492910183",
 				Label = "rarity",
 				animRef = rarityButtonRef,
 				positioning = "bottom",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
-				selected = currentSort == 1,
+				selected = currentSort == "Recent",
 				onClick = function()
-					swapSorts(1)
+					swapSorts("Recent")
 				end,
 				Position = UDim2.new(0, 48, 0, 56),
-				Image = "http://www.roblox.com/asset/?id=139863050881990",
+				Image = "http://www.roblox.com/asset/?id=102691074631157",
 				Label = "recent",
 				animRef = recentButtonRef,
 				positioning = "bottom",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
-				selected = currentSort == 2,
+				selected = currentSort == "Quantity",
 				onClick = function()
-					swapSorts(2)
+					swapSorts("Quantity")
 				end,
 				Position = UDim2.new(0, 80, 0, 56),
-				Image = "http://www.roblox.com/asset/?id=77073269656169",
+				Image = "http://www.roblox.com/asset/?id=91074144017769",
 				Label = "quantity",
 				animRef = quantityButtonRef,
 				positioning = "bottom",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
-				selected = currentSort == 3,
+				selected = currentSort == "Alphabetical",
 				onClick = function()
-					swapSorts(3)
+					swapSorts("Alphabetical")
 				end,
 				Position = UDim2.new(0, 112, 0, 56),
-				Image = "http://www.roblox.com/asset/?id=73812354996194",
+				Image = "http://www.roblox.com/asset/?id=124394236692137",
 				Label = "alphabetical",
 				animRef = alphabeticalButtonRef,
 				positioning = "bottom",

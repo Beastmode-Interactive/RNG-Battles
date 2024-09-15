@@ -52,6 +52,13 @@ local Themes = {
 			FontFace = Font.fromEnum(Enum.Font.FredokaOne),
 			TextSize = 24,
 		},
+		Accent16 = {
+			TextColor3 = Colours.Blue100,
+			TextStrokeColor3 = Colours.Blue800,
+			TextStrokeTransparency = 0,
+			FontFace = Font.fromEnum(Enum.Font.FredokaOne),
+			TextSize = 16,
+		},
 		Body = {
 			TextColor3 = Colours.Blue800,
 			TextStrokeTransparency = 1,
