@@ -6,24 +6,31 @@ local BuffsPage = require(script.BuffsPage)
 local CosmeticsPage = require(script.CosmeticsPage)
 local ConsumablesPage = require(script.ConsumablesPage)
 local Themes = require(ReplicatedStorage.Shared.UI.Themes)
-local MenuTag = require(script.MenuTag)
+local ButtonWithTextTooltip = require(script.ButtonWithTextTooltip)
+local InventoryPageWrapper = require(script.InventoryPageWrapper)
 
 return function(props)
 	local PageRef = React.useRef()
-	local label1Ref = React.useRef()
-	local label2Ref = React.useRef()
-	local label3Ref = React.useRef()
-	local label4Ref = React.useRef()
-	local bottomlabel1Ref = React.useRef()
-	local bottomlabel2Ref = React.useRef()
-	local bottomlabel3Ref = React.useRef()
-	local bottomlabel4Ref = React.useRef()
+	local craftingButonRef = React.useRef()
+	local consumablesButtonRef = React.useRef()
+	local cosmeticsButtonRef = React.useRef()
+	local buffsButtonRef = React.useRef()
+	local rarityButtonRef = React.useRef()
+	local recentButtonRef = React.useRef()
+	local quantityButtonRef = React.useRef()
+	local alphabeticalButtonRef = React.useRef()
 	local currentPage, setCurrentPage = React.useState(0)
+	local currentSort, setCurrentSort = React.useState(0)
+
 	local swapPages = function(page)
 		setCurrentPage(page)
 		if PageRef.current then
 			PageRef.current:JumpToIndex(page)
 		end
+	end
+
+	local swapSorts = function(page)
+		setCurrentSort(page)
 	end
 
 	return React.createElement("Frame", {
@@ -61,10 +68,26 @@ return function(props)
 						ScrollWheelInputEnabled = false,
 						ref = PageRef,
 					}),
-					React.createElement(CraftingPage, { isMobile = props.isMobile }),
-					React.createElement(ConsumablesPage, { isMobile = props.isMobile }),
-					React.createElement(CosmeticsPage, { isMobile = props.isMobile }),
-					React.createElement(BuffsPage, { isMobile = props.isMobile }),
+					React.createElement(
+						InventoryPageWrapper,
+						{},
+						{ React.createElement(CraftingPage, { isMobile = props.isMobile }) }
+					),
+					React.createElement(
+						InventoryPageWrapper,
+						{},
+						{ React.createElement(ConsumablesPage, { isMobile = props.isMobile }) }
+					),
+					React.createElement(
+						InventoryPageWrapper,
+						{},
+						{ React.createElement(CosmeticsPage, { isMobile = props.isMobile }) }
+					),
+					React.createElement(
+						InventoryPageWrapper,
+						{},
+						{ React.createElement(BuffsPage, { isMobile = props.isMobile }) }
+					),
 				}
 			),
 		}),
@@ -82,44 +105,48 @@ return function(props)
 			React.createElement("UICorner", {
 				CornerRadius = UDim.new(0, 32),
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 0,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentSort == 0,
+				onClick = function()
+					swapSorts(0)
+				end,
 				Position = UDim2.new(0, 16, 0, 56),
 				Image = "http://www.roblox.com/asset/?id=77739754042364",
 				Label = "rarity",
-				swapPages = swapPages,
-				animRef = bottomlabel1Ref,
-				currentPage = currentPage,
+				animRef = rarityButtonRef,
 				positioning = "bottom",
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 1,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentSort == 1,
+				onClick = function()
+					swapSorts(1)
+				end,
 				Position = UDim2.new(0, 48, 0, 56),
 				Image = "http://www.roblox.com/asset/?id=139863050881990",
 				Label = "recent",
-				swapPages = swapPages,
-				animRef = bottomlabel2Ref,
-				currentPage = currentPage,
+				animRef = recentButtonRef,
 				positioning = "bottom",
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 2,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentSort == 2,
+				onClick = function()
+					swapSorts(2)
+				end,
 				Position = UDim2.new(0, 80, 0, 56),
 				Image = "http://www.roblox.com/asset/?id=77073269656169",
 				Label = "quantity",
-				swapPages = swapPages,
-				animRef = bottomlabel3Ref,
-				currentPage = currentPage,
+				animRef = quantityButtonRef,
 				positioning = "bottom",
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 3,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentSort == 3,
+				onClick = function()
+					swapSorts(3)
+				end,
 				Position = UDim2.new(0, 112, 0, 56),
 				Image = "http://www.roblox.com/asset/?id=73812354996194",
 				Label = "alphabetical",
-				swapPages = swapPages,
-				animRef = bottomlabel4Ref,
-				currentPage = currentPage,
+				animRef = alphabeticalButtonRef,
 				positioning = "bottom",
 			}),
 		}),
@@ -136,44 +163,48 @@ return function(props)
 			React.createElement("UICorner", {
 				CornerRadius = UDim.new(0, 32),
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 0,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentPage == 0,
+				onClick = function()
+					swapPages(0)
+				end,
 				Position = UDim2.new(0, 16, 0, 12),
 				Image = "http://www.roblox.com/asset/?id=77739754042364",
 				Label = "crafting materials",
-				swapPages = swapPages,
-				animRef = label1Ref,
-				currentPage = currentPage,
+				animRef = craftingButonRef,
 				positioning = "top",
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 1,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentPage == 1,
+				onClick = function()
+					swapPages(1)
+				end,
 				Position = UDim2.new(0, 64, 0, 12),
 				Image = "http://www.roblox.com/asset/?id=139863050881990",
 				Label = "consumables",
-				swapPages = swapPages,
-				animRef = label2Ref,
-				currentPage = currentPage,
+				animRef = consumablesButtonRef,
 				positioning = "top",
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 2,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentPage == 2,
+				onClick = function()
+					swapPages(2)
+				end,
 				Position = UDim2.new(0, 112, 0, 12),
 				Image = "http://www.roblox.com/asset/?id=77073269656169",
 				Label = "cosmetics",
-				swapPages = swapPages,
-				animRef = label3Ref,
-				currentPage = currentPage,
+				animRef = cosmeticsButtonRef,
 				positioning = "top",
 			}),
-			React.createElement(MenuTag, {
-				PageNum = 3,
+			React.createElement(ButtonWithTextTooltip, {
+				selected = currentPage == 3,
+				onClick = function()
+					swapPages(3)
+				end,
 				Position = UDim2.new(0, 160, 0, 12),
 				Image = "http://www.roblox.com/asset/?id=73812354996194",
 				Label = "buffs/debuffs",
-				swapPages = swapPages,
-				animRef = label4Ref,
-				currentPage = currentPage,
+				animRef = buffsButtonRef,
 				positioning = "top",
 			}),
 		}),

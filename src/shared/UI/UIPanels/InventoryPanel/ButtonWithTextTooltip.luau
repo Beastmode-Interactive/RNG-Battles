@@ -6,7 +6,7 @@ local AnimateUI = require(ReplicatedStorage.Shared.UI.AnimateUI)
 
 return function(props)
 	return React.createElement("ImageButton", {
-		ImageColor3 = if props.currentPage == props.PageNum then Themes.Colours.Blue600 else Themes.Colours.White,
+		ImageColor3 = if props.selected then Themes.Colours.Blue600 else Themes.Colours.White,
 		Image = props.Image,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(
@@ -17,15 +17,15 @@ return function(props)
 		),
 		Position = props.Position,
 		[React.Event.Activated] = function()
-			props.swapPages(props.PageNum)
+			props.onClick()
 		end,
 		[React.Event.MouseEnter] = function()
 			if props.animRef.current then
-				AnimateUI.typeWrite(props.animRef.current, props.Label, 0.002)
+				AnimateUI:typeWrite(props.animRef.current, props.Label, 0.01)
 			end
 		end,
 		[React.Event.MouseLeave] = function()
-			AnimateUI.unTypeWrite(props.animRef.current, 0.002)
+			AnimateUI:unTypeWrite(props.animRef.current, 0.005)
 		end,
 	}, {
 		React.createElement("Frame", {
