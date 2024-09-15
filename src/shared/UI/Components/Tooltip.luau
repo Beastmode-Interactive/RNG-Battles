@@ -68,7 +68,35 @@ return function(props)
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 0, 24),
 						Position = UDim2.new(0, 0, 0, 0),
-						Text = "ConsumableName",
+						Text = props.ItemName,
+					}),
+					{}
+				),
+				React.createElement(
+					"TextLabel",
+					dash.join(Themes.Text.Body, {
+						ZIndex = 201,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 37),
+						Position = UDim2.new(0, 0, 0, 29),
+						Text = props.ItemDescription,
+						TextXAlignment = Enum.TextXAlignment.Center,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						TextWrapped = true,
+					}),
+					{}
+				),
+				React.createElement(
+					"TextLabel",
+					dash.join(Themes.Text.Accent16, {
+						ZIndex = 201,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 22),
+						Position = UDim2.new(0, 0, 1, -27),
+						Text = "1/" .. props.ItemRarity,
+						TextXAlignment = Enum.TextXAlignment.Center,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						TextWrapped = true,
 					}),
 					{}
 				),
