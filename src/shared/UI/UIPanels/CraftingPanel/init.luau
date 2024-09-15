@@ -46,7 +46,6 @@ return function(props)
 		end
 	end, { secondaryScreenOut })
 
-	local currentPageData, setCurrentPageData = React.useState(Upgrades)
 	local selectedPageData, setSelectedPageData = React.useState(Upgrades)
 	React.useEffect(function()
 		if currentPageSelection == 0 then
@@ -55,14 +54,6 @@ return function(props)
 			setSelectedPageData(Buffs)
 		elseif currentPageSelection == 2 then
 			setSelectedPageData(Debuffs)
-		end
-
-		if currentPage == 0 then
-			setCurrentPageData(Upgrades)
-		elseif currentPage == 1 then
-			setCurrentPageData(Buffs)
-		elseif currentPage == 2 then
-			setCurrentPageData(Debuffs)
 		end
 	end, { currentItemSelection, currentPage })
 
