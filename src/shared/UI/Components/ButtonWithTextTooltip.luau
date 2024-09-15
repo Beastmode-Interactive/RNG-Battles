@@ -9,12 +9,7 @@ return function(props)
 		ImageColor3 = if props.selected then Themes.Colours.Blue600 else Themes.Colours.White,
 		Image = props.Image,
 		BackgroundTransparency = 1,
-		Size = UDim2.new(
-			0,
-			if props.positioning == "top" then 48 else 32,
-			0,
-			if props.positioning == "top" then 48 else 32
-		),
+		Size = UDim2.new(0, props.Size, 0, props.Size),
 		Position = props.Position,
 		[React.Event.Activated] = function()
 			props.onClick()

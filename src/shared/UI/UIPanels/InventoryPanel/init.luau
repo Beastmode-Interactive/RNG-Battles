@@ -6,8 +6,8 @@ local BuffsPage = require(script.BuffsPage)
 local CosmeticsPage = require(script.CosmeticsPage)
 local ConsumablesPage = require(script.ConsumablesPage)
 local Themes = require(ReplicatedStorage.Shared.UI.Themes)
-local ButtonWithTextTooltip = require(script.ButtonWithTextTooltip)
 local InventoryPageWrapper = require(script.InventoryPageWrapper)
+local ButtonWithTextTooltip = require(ReplicatedStorage.Shared.UI.Components.ButtonWithTextTooltip)
 
 return function(props)
 	local PageRef = React.useRef()
@@ -106,6 +106,7 @@ return function(props)
 				CornerRadius = UDim.new(0, 32),
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 32,
 				selected = currentSort == "Rarity",
 				onClick = function()
 					swapSorts("Rarity")
@@ -117,6 +118,7 @@ return function(props)
 				positioning = "bottom",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 32,
 				selected = currentSort == "Recent",
 				onClick = function()
 					swapSorts("Recent")
@@ -128,6 +130,7 @@ return function(props)
 				positioning = "bottom",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 32,
 				selected = currentSort == "Quantity",
 				onClick = function()
 					swapSorts("Quantity")
@@ -139,6 +142,7 @@ return function(props)
 				positioning = "bottom",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 32,
 				selected = currentSort == "Alphabetical",
 				onClick = function()
 					swapSorts("Alphabetical")
@@ -164,6 +168,7 @@ return function(props)
 				CornerRadius = UDim.new(0, 32),
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 48,
 				selected = currentPage == 0,
 				onClick = function()
 					swapPages(0)
@@ -175,6 +180,7 @@ return function(props)
 				positioning = "top",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 48,
 				selected = currentPage == 1,
 				onClick = function()
 					swapPages(1)
@@ -186,6 +192,7 @@ return function(props)
 				positioning = "top",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 48,
 				selected = currentPage == 2,
 				onClick = function()
 					swapPages(2)
@@ -197,6 +204,7 @@ return function(props)
 				positioning = "top",
 			}),
 			React.createElement(ButtonWithTextTooltip, {
+				Size = 48,
 				selected = currentPage == 3,
 				onClick = function()
 					swapPages(3)

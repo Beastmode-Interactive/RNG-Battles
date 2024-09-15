@@ -53,5 +53,8 @@ return function(props)
 		end
 	end
 
-	return React.createElement(ScrollingInventoryFrame, { InventoryItems = InventoryItems, isMobile = props.isMobile })
+	return React.createElement(
+		ScrollingInventoryFrame,
+		{ ItemSizeX = 101, ItemSizeY = 101, InventoryItems = InventoryItems, isMobile = props.isMobile }
+	)
 end
