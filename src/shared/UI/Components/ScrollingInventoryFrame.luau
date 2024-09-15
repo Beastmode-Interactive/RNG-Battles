@@ -21,7 +21,10 @@ return function(props)
 			React.createElement("Frame", { Size = UDim2.new(1, 0, 1, -24), BackgroundTransparency = 1 }, {
 				React.createElement(
 					"UIGridLayout",
-					{ CellPadding = UDim2.new(0, 5, 0, 5), CellSize = UDim2.new(0, 101, 0, 101) },
+					{
+						CellPadding = UDim2.new(0, 5, 0, 5),
+						CellSize = UDim2.new(0, props.ItemSizeX, 0, props.ItemSizeY),
+					},
 					{}
 				),
 				props.InventoryItems,
