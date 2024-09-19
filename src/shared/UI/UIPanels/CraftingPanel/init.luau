@@ -9,14 +9,15 @@ local SecondaryPanel = require(script.SecondaryPanel)
 local Upgrades = require(ReplicatedStorage.Shared.ResourceData.Upgrades)
 local Debuffs = require(ReplicatedStorage.Shared.ResourceData.Debuffs)
 local Buffs = require(ReplicatedStorage.Shared.ResourceData.Buffs)
+local MockCraftingInventoryData = require(script.MockCraftingInventoryData)
 local TweenService = game:GetService("TweenService")
 return function(props)
-	local SecondaryPanelRef = React.useRef()
-	local MainPanelRef = React.useRef()
-	local PageRef = React.useRef()
-	local upgradesRef = React.useRef()
-	local buffsRef = React.useRef()
-	local debuffsRef = React.useRef()
+	local SecondaryPanelRef = React.useRef(nil)
+	local MainPanelRef = React.useRef(nil)
+	local PageRef = React.useRef(nil)
+	local upgradesRef = React.useRef(nil)
+	local buffsRef = React.useRef(nil)
+	local debuffsRef = React.useRef(nil)
 	local currentItemSelection, setCurrentItemSelection = React.useState(nil)
 	local currentPageSelection, setCurrentPageSelection = React.useState(nil)
 	local currentPage, setCurrentPage = React.useState(0)
@@ -193,7 +194,7 @@ return function(props)
 				then React.createElement(SecondaryPanel, {
 					description = selectedPageData[currentItemSelection].description,
 					name = selectedPageData[currentItemSelection].name,
-					level = 90,
+					level = MockCraftingInventoryData[currentItemSelection],
 					Panel = SecondaryPanelRef,
 				})
 				else nil,

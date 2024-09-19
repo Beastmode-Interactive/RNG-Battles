@@ -9,8 +9,8 @@ local Colours = {
 	Blue600 = Color3.fromRGB(82, 143, 247),
 	ProgressPrimary = Color3.fromRGB(85, 151, 251),
 	Blue800 = Color3.fromRGB(4, 13, 26),
-	LobbyRed = Color3.fromRGB(255, 118, 117),
-	BattleGreen = Color3.fromRGB(85, 239, 196),
+	Red250 = Color3.fromRGB(255, 118, 117),
+	Green250 = Color3.fromRGB(85, 239, 196),
 }
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.react)

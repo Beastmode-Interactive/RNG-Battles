@@ -5,14 +5,8 @@ local React = require(ReplicatedStorage.Packages.react)
 local Upgrades = require(ReplicatedStorage.Shared.ResourceData.Upgrades)
 local Buffs = require(ReplicatedStorage.Shared.ResourceData.Buffs)
 local Debuffs = require(ReplicatedStorage.Shared.ResourceData.Debuffs)
+local MockCraftingInventoryData = require(script.Parent.MockCraftingInventoryData)
 return function(props)
-	local craftingInventory = {
-		[1] = 4,
-		[2] = 3,
-		[3] = 0,
-		[4] = 1,
-	}
-
 	local pageData
 	if props.page == 0 then
 		pageData = Upgrades
@@ -24,7 +18,7 @@ return function(props)
 
 	local CraftingItems = {}
 
-	for i, v in ipairs(craftingInventory) do
+	for i, v in ipairs(MockCraftingInventoryData) do
 		table.insert(
 			CraftingItems,
 

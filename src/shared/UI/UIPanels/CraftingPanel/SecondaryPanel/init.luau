@@ -9,13 +9,13 @@ local CraftingProbabilityBar = require(script.CraftingProbabilityBar)
 return function(props)
 	return React.createElement("Frame", {
 		Position = UDim2.new(0, -200, 0.5, 0),
-		--Position = UDim2.new(0,298, 0.5, 0),
 		AnchorPoint = Vector2.new(0, 0.5),
 		Size = UDim2.new(0, 400, 0, 400),
 		BackgroundTransparency = 1,
 		ref = props.Panel,
 	}, {
 
+		--Background
 		React.createElement("ImageLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),
@@ -38,6 +38,7 @@ return function(props)
 				BackgroundTransparency = 1,
 			}, {
 
+				--Name
 				React.createElement(
 					"TextLabel",
 					dash.join(Themes.Text.InfoHeading, {
@@ -52,6 +53,7 @@ return function(props)
 					}),
 					{}
 				),
+				--Level
 				React.createElement(
 					"TextLabel",
 					dash.join(Themes.Text.SmallSubheading, {
@@ -66,6 +68,7 @@ return function(props)
 					}),
 					{}
 				),
+				--Description
 				React.createElement(
 					"TextLabel",
 					dash.join(Themes.Text.SmallSubheading, {
@@ -83,27 +86,13 @@ return function(props)
 					{}
 				),
 
+				--Crafting options
 				React.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, 60),
 					Position = UDim2.new(0, 0, 1, 0),
 					AnchorPoint = Vector2.new(0, 1),
 					BackgroundTransparency = 1,
 				}, {
-
-					-- React.createElement("Frame", {
-					-- 	Position = UDim2.new(0.5, -54, 0.5, -20),
-					-- 	AnchorPoint = Vector2.new(0.5, 0.5),
-					-- 	BackgroundTransparency = 1,
-					-- }, {
-					-- 	React.createElement(CraftButton, {
-					-- 		Disabled = false,
-					-- 		Text = "Craft",
-					-- 		onClick = function()
-					-- 			print("clicked")
-					-- 		end,
-					-- 	}),
-					-- }),
-
 					React.createElement("Frame", {
 						Position = UDim2.new(0, 0, 0.5, -20),
 						AnchorPoint = Vector2.new(0, 0.5),
