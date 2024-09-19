@@ -64,7 +64,7 @@ return function(props)
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = UDim2.new(1, -5, 1, -5),
-			Active = if props.disabled then false else true,
+			Active = not props.disabled,
 			[React.Event.Activated] = props.onClick,
 			[React.Event.MouseEnter] = onMouseEnter,
 			[React.Event.MouseLeave] = onMouseLeave,

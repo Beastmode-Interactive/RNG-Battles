@@ -6,30 +6,30 @@ local CraftingMaterials = require(ReplicatedStorage.Shared.ResourceData.Crafting
 
 return function(props)
 	local craftingInventory = {
-		{ id = 1, amount = 4 },
-		{ id = 2, amount = 1244 },
-		{ id = 3, amount = 490 },
+		{ id = 1, amount = 4, lastAttained = 483209420 },
+		{ id = 2, amount = 1244, lastAttained = 483209422 },
+		{ id = 3, amount = 490, lastAttained = 483209421 },
 	}
 
 	local displayInventory, setDisplayInventory = React.useState(craftingInventory)
 	React.useEffect(function()
-		print("HELLO")
 		if props.sortType == "Rarity" then
 			table.sort(craftingInventory, function(a, b)
 				return CraftingMaterials[a.id].rarity > CraftingMaterials[b.id].rarity
 			end)
 		elseif props.sortType == "Recent" then
-			print("")
-		elseif props.sortType == "Quantity" then
 			table.sort(craftingInventory, function(a, b)
 				return a.amount > b.amount
+			end)
+		elseif props.sortType == "Quantity" then
+			table.sort(craftingInventory, function(a, b)
+				return a.lastAttained > b.lastAttained
 			end)
 		elseif props.sortType == "Alphabetical" then
 			table.sort(craftingInventory, function(a, b)
 				return CraftingMaterials[a.id].name < CraftingMaterials[b.id].name
 			end)
 		end
-		print(craftingInventory)
 		setDisplayInventory(craftingInventory)
 	end, { props.sortType })
 
