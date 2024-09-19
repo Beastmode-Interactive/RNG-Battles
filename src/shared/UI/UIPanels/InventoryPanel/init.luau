@@ -76,17 +76,17 @@ return function(props)
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(ConsumablesPage, { isMobile = props.isMobile }) }
+						{ React.createElement(ConsumablesPage, { sortType = currentSort, isMobile = props.isMobile }) }
 					),
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(CosmeticsPage, { isMobile = props.isMobile }) }
+						{ React.createElement(CosmeticsPage, { sortType = currentSort, isMobile = props.isMobile }) }
 					),
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(BuffsPage, { isMobile = props.isMobile }) }
+						{ React.createElement(BuffsPage, { sortType = currentSort, isMobile = props.isMobile }) }
 					),
 				}
 			),
