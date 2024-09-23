@@ -1,10 +1,19 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.react)
 local Themes = require(ReplicatedStorage.Shared.UI.Themes)
 local dash = require(ReplicatedStorage.Packages.dash)
 local TweenService = game:GetService("TweenService")
 
-return function(props)
+export type CraftingItemProps = {
+	selected: boolean,
+	onClick: (any) -> any,
+	name: string,
+	level: number,
+	icon: string,
+}
+
+return function(props: CraftingItemProps)
 	local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 	local parentFrameRef = React.useRef(nil)
 
@@ -23,7 +32,9 @@ return function(props)
 	end
 
 	React.useEffect(function()
-		onMouseLeave(parentFrameRef.current)
+		if parentFrameRef.current then
+			onMouseLeave(parentFrameRef.current)
+		end
 	end, { props.selected })
 
 	return React.createElement("Frame", {

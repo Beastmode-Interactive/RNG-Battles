@@ -1,10 +1,22 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.react)
 local Themes = require(ReplicatedStorage.Shared.UI.Themes)
 local dash = require(ReplicatedStorage.Packages.dash)
 local AnimateUI = require(ReplicatedStorage.Shared.UI.AnimateUI)
 
-return function(props)
+export type ButtonWithTextTooltipProps = {
+	Size: number,
+	Image: string,
+	selected: boolean,
+	Position: UDim2,
+	onClick: (any) -> any,
+	animRef: any,
+	Label: string,
+	positioning: "top" | "bottom",
+}
+
+return function(props: ButtonWithTextTooltipProps)
 	return React.createElement("ImageButton", {
 		ImageColor3 = if props.selected then Themes.Colours.Blue600 else Themes.Colours.White,
 		Image = props.Image,
@@ -33,6 +45,7 @@ return function(props)
 			),
 			AnchorPoint = Vector2.new(0, if props.positioning == "top" then 1 else 0),
 			Rotation = if props.positioning == "top" then -60 else 60,
+
 			BackgroundTransparency = 1,
 		}, {
 

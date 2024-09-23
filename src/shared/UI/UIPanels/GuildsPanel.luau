@@ -1,3 +1,4 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local MenuFrame = require(ReplicatedStorage.Shared.UI.Components.MenuFrame)
 local React = require(ReplicatedStorage.Packages.react)
@@ -13,5 +14,5 @@ return function(props)
 		Size = UDim2.new(0.5, 0, 0.5, 0),
 		AutomaticSize = Enum.AutomaticSize.XY,
 		BackgroundTransparency = 1,
-	}, { MenuFrame({ isMobile = props.isMobile, children = screen }) })
+	}, { React.createElement(MenuFrame, { isMobile = props.isMobile, children = screen }) })
 end

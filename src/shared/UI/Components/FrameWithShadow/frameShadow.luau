@@ -1,7 +1,17 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.react)
 local Themes = require(ReplicatedStorage.Shared.UI.Themes)
-return function(props)
+
+export type FrameShadowProps = {
+	Size: UDim2,
+	BackgroundColor3: Color3,
+	ZIndex: number,
+	Position: UDim2,
+	isMobile: boolean,
+}
+
+return function(props: FrameShadowProps)
 	return React.createElement("Frame", {
 		Size = props.Size,
 		BackgroundColor3 = props.BackgroundColor3,

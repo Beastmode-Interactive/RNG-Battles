@@ -1,3 +1,4 @@
+--!strict
 local TeleportService = game:GetService("TeleportService")
 
 local ATTEMPT_LIMIT = 5
@@ -51,7 +52,7 @@ function SafeTeleportService:OnPlayerRemoved(player: Player)
 end
 
 function SafeTeleportService:KnitStart()
-	TeleportService.TeleportInitFailed:Connect(SafeTeleportService.handleFailedTeleport)
+	TeleportService.TeleportInitFailed:Connect(self.handleFailedTeleport)
 end
 
 function SafeTeleportService:KnitInit() end

@@ -1,3 +1,4 @@
+--!strict
 -- Battle button
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Button = require(ReplicatedStorage.Shared.UI.Components.Button)

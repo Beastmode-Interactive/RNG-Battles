@@ -1,3 +1,4 @@
+--!strict
 return {
 	cash = 0,
 	xp = 0,

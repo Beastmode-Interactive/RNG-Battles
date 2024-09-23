@@ -1,3 +1,4 @@
+--!strict
 return {
 	[1] = {
 		name = "B1",

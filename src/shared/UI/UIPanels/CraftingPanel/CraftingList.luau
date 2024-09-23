@@ -1,3 +1,4 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ScrollingInventoryFrame = require(ReplicatedStorage.Shared.UI.Components.ScrollingInventoryFrame)
 local CraftingItem = require(ReplicatedStorage.Shared.UI.Components.CraftingItem)
