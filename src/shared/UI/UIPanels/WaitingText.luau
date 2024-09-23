@@ -1,3 +1,4 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.react)
 local dash = require(ReplicatedStorage.Packages.dash)
@@ -22,5 +23,5 @@ return function()
 		Size = UDim2.new(0.7, 0, 0.5, 0),
 		Position = UDim2.new(0.5, 0, 0.3, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
-	}, { label() })
+	}, { React.createElement(label) })
 end

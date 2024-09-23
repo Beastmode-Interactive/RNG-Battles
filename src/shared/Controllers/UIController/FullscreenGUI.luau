@@ -1,3 +1,4 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.react)
 local WaitingScreen = require(ReplicatedStorage.Shared.UI.UIPanels.WaitingScreen)

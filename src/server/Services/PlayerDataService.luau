@@ -1,5 +1,6 @@
+--!strict
 local ServerScriptService = game:GetService("ServerScriptService")
-local profileservice = require(ServerScriptService.Packages.profileservice)
+local profileservice = require(ServerScriptService.Packages.profileservice) :: any
 local DefaultProfile = require(ServerScriptService.Server.Classes.DefaultProfile)
 local Players = game:GetService("Players")
 
@@ -12,7 +13,7 @@ local profileStore = profileservice.GetProfileStore("PlayerData", DefaultProfile
 local profiles = {}
 
 function PlayerDataService:OnPlayerAdded(player: Player)
-	local profile = profileStore:LoadProfileAsync("Player_" .. player.UserId)
+	local profile = profileStore:LoadProfileAsync("Player_" .. tostring(player.UserId))
 	if profile ~= nil then
 		profile:AddUserId(player.UserId)
 		profile:Reconcile()

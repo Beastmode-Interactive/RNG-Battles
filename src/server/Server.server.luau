@@ -1,3 +1,4 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 local Knit = require(ReplicatedStorage.Packages.Knit)
@@ -5,7 +6,7 @@ local Players = game:GetService("Players")
 
 for _, v in ipairs(ServerScriptService.Server.Services:GetDescendants()) do
 	if v:IsA("ModuleScript") and v.Name:match("Service$") then
-		Knit.CreateService(require(v))
+		Knit.CreateService(require(v) :: any)
 	end
 end
 

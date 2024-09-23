@@ -1,9 +1,10 @@
+--!strict
 local Lighting = game:GetService("Lighting")
 local TweenService = game:GetService("TweenService")
 local LightingController = {
 	Name = "LightingController",
 }
-local Blur
+local Blur: BlurEffect
 
 function LightingController:EnableBlur()
 	local InBlur = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)

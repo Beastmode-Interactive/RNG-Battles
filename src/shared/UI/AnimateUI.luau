@@ -1,8 +1,9 @@
+--!strict
 local LocalizationService = game:GetService("LocalizationService")
 local Players = game:GetService("Players")
 
 local SOURCE_LOCALE = "en"
-local translator = nil
+local translator: Translator = nil
 
 local AnimateUI = {}
 
@@ -19,7 +20,7 @@ function AnimateUI.loadTranslator()
 	end
 end
 
-function AnimateUI:typeWrite(guiObject, text, delayBetweenChars)
+function AnimateUI:typeWrite(guiObject: TextLabel, text, delayBetweenChars)
 	self.objectStatus[guiObject] = "Opening"
 	guiObject.AutoLocalize = false
 	local displayText = text

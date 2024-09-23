@@ -1,3 +1,4 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local MenuFrame = require(ReplicatedStorage.Shared.UI.Components.MenuFrame)
 local React = require(ReplicatedStorage.Packages.react)
@@ -33,7 +34,7 @@ return function(props)
 
 	React.useEffect(function()
 		if secondaryScreenOut then
-			if SecondaryPanelRef.current then
+			if SecondaryPanelRef.current and MainPanelRef.current then
 				local screenIn = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
 				local Tween =
 					TweenService:Create(SecondaryPanelRef.current, screenIn, { Position = UDim2.new(0, 298, 0.5, 0) })
@@ -56,7 +57,7 @@ return function(props)
 		elseif currentPageSelection == 2 then
 			setSelectedPageData(Debuffs)
 		end
-	end, { currentItemSelection, currentPage })
+	end, { currentItemSelection, currentPage :: any })
 
 	return React.createElement("Frame", {
 		Position = UDim2.new(0.5, 0, 0.5, 0),

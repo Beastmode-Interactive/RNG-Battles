@@ -1,3 +1,4 @@
+--!strict
 local MemoryStoreService = game:GetService("MemoryStoreService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -9,7 +10,7 @@ local LeaderElection = require(ServerScriptService.Server.Services.LeaderElectio
 local HttpService = game:GetService("HttpService")
 local MessagingService = game:GetService("MessagingService")
 local TeleportService = game:GetService("TeleportService")
-local MatchmakingQueue
+local MatchmakingQueue: MemoryStoreSortedMap
 
 local placeID: number
 
@@ -22,7 +23,7 @@ local MatchmakingService = {
 
 local function PerformMatchmaking()
 	while true do
-		local longestWaitingPlayers = {}
+		local longestWaitingPlayers: { any } = {}
 		local success, result = pcall(function()
 			longestWaitingPlayers = MatchmakingQueue:GetRangeAsync(Enum.SortDirection.Ascending, 2)
 		end)
@@ -65,13 +66,13 @@ end
 
 function MatchmakingService.Client:ExitPool(player: Player)
 	pcall(function()
-		MatchmakingQueue:RemoveAsync(player.UserId)
+		MatchmakingQueue:RemoveAsync(tostring(player.UserId))
 	end)
 end
 
 function MatchmakingService:OnPlayerRemoved(player: Player)
 	pcall(function()
-		MatchmakingQueue:RemoveAsync(player.UserId)
+		MatchmakingQueue:RemoveAsync(tostring(player.UserId))
 	end)
 end
 

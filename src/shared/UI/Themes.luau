@@ -1,3 +1,4 @@
+--!strict
 local Colours = {
 	Primary = Color3.fromRGB(36, 231, 19),
 	Secondary = Color3.fromRGB(49, 49, 49),
