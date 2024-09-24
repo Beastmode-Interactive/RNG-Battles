@@ -14,5 +14,5 @@ return function(props)
 		Size = UDim2.new(0.5, 0, 0.5, 0),
 		AutomaticSize = Enum.AutomaticSize.XY,
 		BackgroundTransparency = 1,
-	}, { React.createElement(MenuFrame, { isMobile = props.isMobile, children = screen }) })
+	}, { React.createElement(MenuFrame, { isMobile = props.isMobile, children = screen, onClose = props.onClose }) })
 end

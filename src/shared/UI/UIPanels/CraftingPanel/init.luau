@@ -83,6 +83,7 @@ return function(props)
 		React.createElement(MenuFrame, {
 			MenuTitle = "Crafting",
 			isMobile = props.isMobile,
+			onClose = props.onClose,
 		}, {
 			React.createElement(
 				"Frame",
