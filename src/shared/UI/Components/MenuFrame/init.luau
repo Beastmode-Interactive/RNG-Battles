@@ -1,5 +1,6 @@
 --!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local CloseButton = require(script.CloseButton)
 local React = require(ReplicatedStorage.Packages.react)
 local Themes = require(ReplicatedStorage.Shared.UI.Themes)
 local FrameWithShadow = require(ReplicatedStorage.Shared.UI.Components.FrameWithShadow)
@@ -11,6 +12,10 @@ export type MenuFrameProps = {
 }
 
 return function(props)
+	local function onClose()
+		props.onClose()
+	end
+
 	return React.createElement(
 		FrameWithShadow,
 		{ BackgroundColor3 = Themes.Colours.Blue100, ZIndex = 1, Size = UDim2.new(1, 0, 1, 0) },
@@ -37,6 +42,16 @@ return function(props)
 						}, { React.createElement(TextLabelWithShadow, { Text = props.MenuTitle }) }),
 					}
 				),
+			}),
+
+			React.createElement("Frame", {
+				Size = UDim2.new(0, 52, 0, 52),
+				Position = UDim2.new(1, 0, 0, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				ZIndex = 50,
+				BackgroundTransparency = 1,
+			}, {
+				React.createElement(CloseButton, { onClick = onClose }),
 			}),
 
 			-- Menu content

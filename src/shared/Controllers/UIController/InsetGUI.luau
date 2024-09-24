@@ -49,25 +49,29 @@ return function()
 		end
 	end
 
+	local function onClose()
+		setCurrentlyOpenScreen("None")
+	end
+
 	local openScreen = nil
 	if currentlyOpenScreen == "Settings" then
-		openScreen = React.createElement(SettingsPanel, { isMobile = isMobile })
+		openScreen = React.createElement(SettingsPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Inventory" then
-		openScreen = React.createElement(InventoryPanel, { isMobile = isMobile })
+		openScreen = React.createElement(InventoryPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Shop" then
-		openScreen = React.createElement(ShopPanel, { isMobile = isMobile })
+		openScreen = React.createElement(ShopPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Crafting" then
-		openScreen = React.createElement(CraftingPanel, { isMobile = isMobile })
+		openScreen = React.createElement(CraftingPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "QuestsBattlepass" then
-		openScreen = React.createElement(QuestsBattlepassPanel, { isMobile = isMobile })
+		openScreen = React.createElement(QuestsBattlepassPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Stats" then
-		openScreen = React.createElement(StatsPanel, { isMobile = isMobile })
+		openScreen = React.createElement(StatsPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Guilds" then
-		openScreen = React.createElement(GuildsPanel, { isMobile = isMobile })
+		openScreen = React.createElement(GuildsPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Trading" then
-		openScreen = React.createElement(TradingPanel, { isMobile = isMobile })
+		openScreen = React.createElement(TradingPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Index" then
-		openScreen = React.createElement(IndexPanel, { isMobile = isMobile })
+		openScreen = React.createElement(IndexPanel, { isMobile = isMobile, onClose = onClose })
 	end
 
 	return {

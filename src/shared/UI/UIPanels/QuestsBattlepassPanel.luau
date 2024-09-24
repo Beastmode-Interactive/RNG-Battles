@@ -15,5 +15,5 @@ return function(props)
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Size = UDim2.new(0.5, 0, 0.5, 0),
 		AutomaticSize = Enum.AutomaticSize.XY,
-	}, { React.createElement(MenuFrame, { isMobile = props.isMobile, children = screen }) })
+	}, { React.createElement(MenuFrame, { isMobile = props.isMobile, children = screen, onClose = props.onClose }) })
 end
