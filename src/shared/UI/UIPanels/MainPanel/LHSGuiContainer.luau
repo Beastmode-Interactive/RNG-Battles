@@ -127,6 +127,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Settings")
 				end,
+				name = "Settings",
 				icon = "http://www.roblox.com/asset/?id=89547679578496",
 				LayoutOrder = 1,
 			}),
@@ -134,6 +135,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Inventory")
 				end,
+				name = "Inventory",
 				icon = "http://www.roblox.com/asset/?id=129981074396823",
 				LayoutOrder = 2,
 			}),
@@ -141,6 +143,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Shop")
 				end,
+				name = "Shop",
 				icon = "http://www.roblox.com/asset/?id=85808121485522",
 				LayoutOrder = 3,
 			}),
@@ -148,6 +151,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Crafting")
 				end,
+				name = "Crafting",
 				icon = "http://www.roblox.com/asset/?id=77153407870867",
 				LayoutOrder = 4,
 			}),
@@ -155,6 +159,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("QuestsBattlepass")
 				end,
+				name = "Quests",
 				icon = "rbxassetid://15736249725",
 				LayoutOrder = 5,
 			}),
@@ -162,6 +167,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Stats")
 				end,
+				name = "Stats",
 				icon = "rbxassetid://15736249725",
 				LayoutOrder = 6,
 			}),
@@ -169,6 +175,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Guilds")
 				end,
+				name = "Guilds",
 				icon = "rbxassetid://15736249725",
 				LayoutOrder = 7,
 			}),
@@ -176,6 +183,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Trading")
 				end,
+				name = "Trading",
 				icon = "rbxassetid://15736249725",
 				LayoutOrder = 8,
 			}),
@@ -183,6 +191,7 @@ return function(props)
 				onClick = function()
 					props.setCurrentlyOpenScreen("Index")
 				end,
+				name = "Index",
 				icon = "rbxassetid://15736249725",
 				LayoutOrder = 9,
 			}),
