@@ -27,7 +27,6 @@ return function(props)
 					local inputPosition = Vector2.new(input.Position.X, input.Position.Y)
 					local relativeMousePos = inputPosition - absolutePosition
 					setMousePosition(relativeMousePos)
-					--setMousePosition(inputPosition)
 				end
 			end
 		end
