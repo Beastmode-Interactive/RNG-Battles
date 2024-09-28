@@ -24,7 +24,6 @@ return function(props)
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Size = UDim2.new(1, -3, 1, -3),
 		BackgroundColor3 = Themes.Colours.White,
-		ZIndex = 100,
 		[React.Event.MouseEnter] = onMouseEnter,
 		[React.Event.MouseLeave] = onMouseLeave,
 	}, {
@@ -51,7 +50,6 @@ return function(props)
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Text = "X",
-				ZIndex = 100,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				AutoButtonColor = false,

@@ -58,6 +58,7 @@ return function(props)
 		BackgroundTransparency = 1,
 		LayoutOrder = props.LayoutOrder,
 		ref = parentFrameRef,
+		ZIndex = if tooltipActive then 1000 else 1,
 	}, {
 
 		if tooltipActive

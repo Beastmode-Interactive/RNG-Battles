@@ -13,8 +13,10 @@ local StatsPanel = require(ReplicatedStorage.Shared.UI.UIPanels.StatsPanel)
 local GuildsPanel = require(ReplicatedStorage.Shared.UI.UIPanels.GuildsPanel)
 local TradingPanel = require(ReplicatedStorage.Shared.UI.UIPanels.TradingPanel)
 local IndexPanel = require(ReplicatedStorage.Shared.UI.UIPanels.IndexPanel)
+local TooltipContainer = require(ReplicatedStorage.Shared.UI.Components.TooltipContainer)
 local RunService = game:GetService("RunService")
 return function()
+	local tooltipData, setTooltipData = React.useState(nil)
 	local playerState, setPlayerState = React.useState("Unqueued")
 	local isMobile, setIsMobile = React.useState(false)
 	local currentlyOpenScreen, setCurrentlyOpenScreen = React.useState("None")
@@ -57,11 +59,17 @@ return function()
 	if currentlyOpenScreen == "Settings" then
 		openScreen = React.createElement(SettingsPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Inventory" then
-		openScreen = React.createElement(InventoryPanel, { isMobile = isMobile, onClose = onClose })
+		openScreen = React.createElement(
+			InventoryPanel,
+			{ setTooltipData = setTooltipData, isMobile = isMobile, onClose = onClose }
+		)
 	elseif currentlyOpenScreen == "Shop" then
 		openScreen = React.createElement(ShopPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Crafting" then
-		openScreen = React.createElement(CraftingPanel, { isMobile = isMobile, onClose = onClose })
+		openScreen = React.createElement(
+			CraftingPanel,
+			{ setTooltipData = setTooltipData, isMobile = isMobile, onClose = onClose }
+		)
 	elseif currentlyOpenScreen == "QuestsBattlepass" then
 		openScreen = React.createElement(QuestsBattlepassPanel, { isMobile = isMobile, onClose = onClose })
 	elseif currentlyOpenScreen == "Stats" then
@@ -86,5 +94,6 @@ return function()
 			else nil,
 		if playerState == "Queued" then React.createElement(WaitingText) else nil,
 		openScreen,
+		React.createElement(TooltipContainer, { tooltipData = tooltipData }),
 	}
 end

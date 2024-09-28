@@ -9,10 +9,9 @@ return function(props)
 		"TextButton",
 		dash.join({
 			Position = UDim2.new(0, 0, 0, 0),
-			AnchorPoint = Vector2.new(0, 0),
+			AnchorPoint = Vector2.new(if props.alignCentre then 0.5 else 0, 0),
 			AutomaticSize = Enum.AutomaticSize.X,
 			BackgroundColor3 = if props.Disabled then Themes.Colours.Red250 else Themes.Colours.Green250,
-			ZIndex = 100,
 			Text = props.Text,
 			Size = UDim2.new(0, 108, 0, 40),
 			Interactable = not props.Disabled,

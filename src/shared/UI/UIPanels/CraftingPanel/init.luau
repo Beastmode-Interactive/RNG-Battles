@@ -10,7 +10,7 @@ local SecondaryPanel = require(script.SecondaryPanel)
 local Upgrades = require(ReplicatedStorage.Shared.ResourceData.Upgrades)
 local Debuffs = require(ReplicatedStorage.Shared.ResourceData.Debuffs)
 local Buffs = require(ReplicatedStorage.Shared.ResourceData.Buffs)
-local MockCraftingInventoryData = require(script.MockCraftingInventoryData)
+local MockCraftingInventoryData = require(ReplicatedStorage.Shared.ResourceData.MockCraftingInventoryData)
 local TweenService = game:GetService("TweenService")
 return function(props)
 	local SecondaryPanelRef = React.useRef(nil)
@@ -76,8 +76,8 @@ return function(props)
 			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
 			ImageTransparency = 0.5,
+			ZIndex = 10,
 			Image = "http://www.roblox.com/asset/?id=140388049726748",
-			ZIndex = 5,
 		}),
 
 		React.createElement(MenuFrame, {
@@ -137,11 +137,10 @@ return function(props)
 		-- BOTTOM MENU OPTIONS
 		--#################
 		React.createElement("Frame", {
-
+			ZIndex = -5,
 			Position = UDim2.new(0.5, 0, 1, -65),
 			AnchorPoint = Vector2.new(0.5, 0),
 			Size = UDim2.new(0, 176, 0, 130),
-			ZIndex = -10,
 			BackgroundColor3 = Themes.Colours.Blue800,
 		}, {
 			React.createElement("UICorner", {
@@ -190,14 +189,22 @@ return function(props)
 			Position = UDim2.new(0, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
 			ClipsDescendants = true,
+			ZIndex = -100,
 			BackgroundTransparency = 1,
 		}, {
 			if currentItemSelection
 				then React.createElement(SecondaryPanel, {
-					description = selectedPageData[currentItemSelection].description,
-					name = selectedPageData[currentItemSelection].name,
-					level = MockCraftingInventoryData[currentItemSelection],
+					setTooltipData = props.setTooltipData,
+					description = selectedPageData[currentItemSelection.itemNum].description,
+					name = selectedPageData[currentItemSelection.itemNum].name,
+					level = MockCraftingInventoryData[currentItemSelection.itemNum],
 					Panel = SecondaryPanelRef,
+					Recipe = selectedPageData[currentItemSelection.itemNum].recipe,
+					isUpgrade = selectedPageData[currentItemSelection.itemNum].maxLevel
+							<= MockCraftingInventoryData[currentItemSelection.itemNum]
+						or currentItemSelection.pageNum == 0,
+					maxed = selectedPageData[currentItemSelection.itemNum].maxLevel
+						<= MockCraftingInventoryData[currentItemSelection.itemNum],
 				})
 				else nil,
 		}),

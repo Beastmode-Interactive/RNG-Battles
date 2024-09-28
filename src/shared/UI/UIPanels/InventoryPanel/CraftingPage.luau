@@ -5,14 +5,14 @@ local InventoryItem = require(ReplicatedStorage.Shared.UI.Components.InventoryIt
 local React = require(ReplicatedStorage.Packages.react)
 local CraftingMaterials = require(ReplicatedStorage.Shared.ResourceData.CraftingMaterials)
 
-return function(props)
-	local craftingInventory = {
-		{ id = 1, amount = 4, lastAttained = 483209420 },
-		{ id = 2, amount = 1244, lastAttained = 483209422 },
-		{ id = 3, amount = 490, lastAttained = 483209421 },
-	}
+local craftingInventory = {
+	{ id = 1, amount = 4, lastAttained = 483209420 },
+	{ id = 2, amount = 1244, lastAttained = 483209422 },
+	{ id = 3, amount = 490, lastAttained = 483209421 },
+}
 
-	local displayInventory, setDisplayInventory = React.useState(craftingInventory)
+return function(props)
+	local inventoryItems, setInventoryItems = React.useState({})
 	React.useEffect(function()
 		if props.sortType == "Rarity" then
 			table.sort(craftingInventory, function(a, b)
@@ -31,31 +31,33 @@ return function(props)
 				return CraftingMaterials[a.id].name < CraftingMaterials[b.id].name
 			end)
 		end
-		setDisplayInventory(craftingInventory)
-	end, { props.sortType })
 
-	local InventoryItems = {}
-	for _, v in ipairs(displayInventory) do
-		if v.amount > 0 then
-			table.insert(
-				InventoryItems,
+		local tableItems = {}
+		for i, v in ipairs(craftingInventory) do
+			if v.amount > 0 then
+				table.insert(
+					tableItems,
 
-				React.createElement(InventoryItem, {
-					onClick = function() end,
-					icon = CraftingMaterials[v.id].icon,
-					name = CraftingMaterials[v.id].name,
-					description = CraftingMaterials[v.id].description,
-					rarity = CraftingMaterials[v.id].rarity,
-					numberOfItems = v.amount,
-					disabled = true,
-					isMobile = props.isMobile,
-				})
-			)
+					React.createElement(InventoryItem, {
+						LayoutOrder = i,
+						setTooltipData = props.setTooltipData,
+						onClick = function() end,
+						icon = CraftingMaterials[v.id].icon,
+						name = CraftingMaterials[v.id].name,
+						description = CraftingMaterials[v.id].description,
+						rarity = CraftingMaterials[v.id].rarity,
+						numberOfItems = v.amount,
+						disabled = true,
+						isMobile = props.isMobile,
+					})
+				)
+			end
 		end
-	end
+		setInventoryItems(tableItems)
+	end, { props.sortType })
 
 	return React.createElement(
 		ScrollingInventoryFrame,
-		{ ItemSizeX = 101, ItemSizeY = 101, InventoryItems = InventoryItems, isMobile = props.isMobile }
+		{ ItemSizeX = 101, ItemSizeY = 101, InventoryItems = inventoryItems, isMobile = props.isMobile }
 	)
 end

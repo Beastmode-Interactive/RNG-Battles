@@ -50,8 +50,8 @@ return function(props)
 			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
 			ImageTransparency = 0.5,
+			ZIndex = 10,
 			Image = "http://www.roblox.com/asset/?id=100877265561001",
-			ZIndex = 5,
 		}),
 
 		React.createElement(MenuFrame, {
@@ -73,22 +73,58 @@ return function(props)
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(CraftingPage, { sortType = currentSort, isMobile = props.isMobile }) }
+						{
+							React.createElement(
+								CraftingPage,
+								{
+									setTooltipData = props.setTooltipData,
+									sortType = currentSort,
+									isMobile = props.isMobile,
+								}
+							),
+						}
 					),
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(ConsumablesPage, { sortType = currentSort, isMobile = props.isMobile }) }
+						{
+							React.createElement(
+								ConsumablesPage,
+								{
+									setTooltipData = props.setTooltipData,
+									sortType = currentSort,
+									isMobile = props.isMobile,
+								}
+							),
+						}
 					),
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(CosmeticsPage, { sortType = currentSort, isMobile = props.isMobile }) }
+						{
+							React.createElement(
+								CosmeticsPage,
+								{
+									setTooltipData = props.setTooltipData,
+									sortType = currentSort,
+									isMobile = props.isMobile,
+								}
+							),
+						}
 					),
 					React.createElement(
 						InventoryPageWrapper,
 						{},
-						{ React.createElement(BuffsPage, { sortType = currentSort, isMobile = props.isMobile }) }
+						{
+							React.createElement(
+								BuffsPage,
+								{
+									setTooltipData = props.setTooltipData,
+									sortType = currentSort,
+									isMobile = props.isMobile,
+								}
+							),
+						}
 					),
 				}
 			),
@@ -98,10 +134,10 @@ return function(props)
 		--BOTTOM MENU SORTING
 		--###################
 		React.createElement("Frame", {
+			ZIndex = -5,
 			Size = UDim2.new(0, 160, 0, 96),
 			Position = UDim2.new(0.5, 0, 1, -48),
 			AnchorPoint = Vector2.new(0.5, 0),
-			ZIndex = -10,
 			BackgroundColor3 = Themes.Colours.Blue800,
 		}, {
 			React.createElement("UICorner", {
@@ -162,8 +198,8 @@ return function(props)
 		--#################
 		React.createElement("Frame", {
 			Size = UDim2.new(0, 224, 0, 130),
+			ZIndex = -5,
 			Position = UDim2.new(1, -250, 0, -64),
-			ZIndex = -10,
 			BackgroundColor3 = Themes.Colours.Blue800,
 		}, {
 			React.createElement("UICorner", {

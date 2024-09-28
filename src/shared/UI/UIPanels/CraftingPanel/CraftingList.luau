@@ -6,7 +6,8 @@ local React = require(ReplicatedStorage.Packages.react)
 local Upgrades = require(ReplicatedStorage.Shared.ResourceData.Upgrades)
 local Buffs = require(ReplicatedStorage.Shared.ResourceData.Buffs)
 local Debuffs = require(ReplicatedStorage.Shared.ResourceData.Debuffs)
-local MockCraftingInventoryData = require(script.Parent.MockCraftingInventoryData)
+local MockCraftingInventoryData = require(ReplicatedStorage.Shared.ResourceData.MockCraftingInventoryData)
+
 return function(props)
 	local pageData
 	if props.page == 0 then
@@ -17,29 +18,37 @@ return function(props)
 		pageData = Debuffs
 	end
 
-	local CraftingItems = {}
+	local craftingItems, setCraftingItems = React.useState({})
+	React.useEffect(function()
+		local selectedItem = -1
+		if props.currentItemSelection then
+			selectedItem = props.currentItemSelection.itemNum
+		end
+		local CraftingItems = {}
+		for i, v in ipairs(MockCraftingInventoryData) do
+			table.insert(
+				CraftingItems,
 
-	for i, v in ipairs(MockCraftingInventoryData) do
-		table.insert(
-			CraftingItems,
-
-			React.createElement(CraftingItem, {
-				onClick = function()
-					props.setSecondaryScreenOut(true)
-					props.setCurrentItemSelection(i)
-					props.setCurrentPageSelection(props.page)
-				end,
-				level = v,
-				selected = i == props.currentItemSelection and props.page == props.currentPageSelection,
-				icon = pageData[i].icon,
-				name = pageData[i].name,
-				isMobile = props.isMobile,
-			})
-		)
-	end
+				React.createElement(CraftingItem, {
+					onClick = function()
+						props.setSecondaryScreenOut(true)
+						props.setCurrentItemSelection({ itemNum = i, pageNum = props.page })
+						props.setCurrentPageSelection(props.page)
+					end,
+					level = v,
+					selected = selectedItem == i and props.page == props.currentPageSelection,
+					icon = pageData[i].icon,
+					name = pageData[i].name,
+					isMobile = props.isMobile,
+					maxLevel = pageData[i].maxLevel,
+				})
+			)
+			setCraftingItems(CraftingItems)
+		end
+	end, {})
 
 	return React.createElement(
 		ScrollingInventoryFrame,
-		{ ItemSizeX = 190, ItemSizeY = 64, InventoryItems = CraftingItems, isMobile = props.isMobile }
+		{ ItemSizeX = 190, ItemSizeY = 64, InventoryItems = craftingItems, isMobile = props.isMobile }
 	)
 end
