@@ -14,6 +14,8 @@ function UIController:KnitStart()
 	fullscreenHandle.Parent = Players.LocalPlayer.PlayerGui
 	fullscreenHandle.ResetOnSpawn = false
 	fullscreenHandle.ScreenInsets = Enum.ScreenInsets.None
+	fullscreenHandle.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	fullscreenHandle.IgnoreGuiInset = true
 	fullscreenHandle.DisplayOrder = 2
 	local fullscreenRoot = ReactRoblox.createRoot(fullscreenHandle)
 	fullscreenRoot:render(React.createElement(FullscreenGUI))
@@ -22,6 +24,7 @@ function UIController:KnitStart()
 	insetHandle.Parent = Players.LocalPlayer.PlayerGui
 	insetHandle.ResetOnSpawn = false
 	insetHandle.ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets
+	insetHandle.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	insetHandle.DisplayOrder = 3
 	local insetRoot = ReactRoblox.createRoot(insetHandle)
 	insetRoot:render(React.createElement(InsetGUI))

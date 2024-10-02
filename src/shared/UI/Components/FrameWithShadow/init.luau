@@ -30,9 +30,9 @@ return function(props: FrameWithShadowProps)
 			AutomaticSize = if props.Size then Enum.AutomaticSize.None else Enum.AutomaticSize.X,
 			Size = if props.Size then props.Size else UDim2.new(0, 0, 1, 0),
 			BackgroundColor3 = props.BackgroundColor3,
-			ZIndex = props.ZIndex,
 			Position = UDim2.new(0, 0, 0, 0),
 			ref = FrameSizeRef,
+			ZIndex = 1,
 		}, {
 			React.createElement("UICorner", {
 				CornerRadius = UDim.new(0, if props.isMobile then 16 else 24),
@@ -47,15 +47,15 @@ return function(props: FrameWithShadowProps)
 		React.createElement(frameShadow, {
 			Size = shadowSize,
 			MenuTitle = props.MenuTitle,
+			ZIndex = -1,
 			BackgroundColor3 = props.BackgroundColor3,
-			ZIndex = props.ZIndex - 1,
 			Position = UDim2.new(0, 2, 0, 2),
 		}),
 		React.createElement(frameShadow, {
 			Size = shadowSize,
 			MenuTitle = props.MenuTitle,
+			ZIndex = -2,
 			BackgroundColor3 = props.BackgroundColor3,
-			ZIndex = props.ZIndex - 2,
 			Position = UDim2.new(0, 4, 0, 4),
 		}),
 	}

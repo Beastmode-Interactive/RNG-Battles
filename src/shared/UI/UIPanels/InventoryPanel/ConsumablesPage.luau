@@ -5,13 +5,13 @@ local InventoryItem = require(ReplicatedStorage.Shared.UI.Components.InventoryIt
 local React = require(ReplicatedStorage.Packages.react)
 local CraftingMaterials = require(ReplicatedStorage.Shared.ResourceData.CraftingMaterials)
 
-return function(props)
-	local craftingInventory = {
-		{ id = 1, amount = 4, lastAttained = 483209420 },
-		{ id = 2, amount = 1244, lastAttained = 483209422 },
-		{ id = 3, amount = 490, lastAttained = 483209421 },
-	}
+local craftingInventory = {
+	{ id = 1, amount = 4, lastAttained = 483209420 },
+	{ id = 2, amount = 1244, lastAttained = 483209422 },
+	{ id = 3, amount = 490, lastAttained = 483209421 },
+}
 
+return function(props)
 	local displayInventory, setDisplayInventory = React.useState(craftingInventory)
 	React.useEffect(function()
 		if props.sortType == "Rarity" then
@@ -35,12 +35,14 @@ return function(props)
 	end, { props.sortType })
 
 	local InventoryItems = {}
-	for _, v in ipairs(displayInventory) do
+	for i, v in ipairs(displayInventory) do
 		if v.amount > 0 then
 			table.insert(
 				InventoryItems,
 
 				React.createElement(InventoryItem, {
+					LayoutOrder = i,
+					setTooltipData = props.setTooltipData,
 					onClick = function() end,
 					icon = CraftingMaterials[v.id].icon,
 					name = CraftingMaterials[v.id].name,

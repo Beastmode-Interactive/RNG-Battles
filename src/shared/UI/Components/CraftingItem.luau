@@ -10,6 +10,7 @@ export type CraftingItemProps = {
 	onClick: (any) -> any,
 	name: string,
 	level: number,
+	maxLevel: number,
 	icon: string,
 }
 
@@ -40,7 +41,6 @@ return function(props: CraftingItemProps)
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, 190, 0, 64),
 		BackgroundTransparency = 1,
-		ZIndex = 7,
 	}, {
 		React.createElement("TextButton", {
 			BackgroundColor3 = if props.selected then Themes.Colours.Blue300 else Themes.Colours.Blue100,
@@ -54,7 +54,6 @@ return function(props: CraftingItemProps)
 			Text = "",
 			BackgroundTransparency = 0,
 			ref = parentFrameRef,
-			ZIndex = 7,
 		}, {
 
 			React.createElement("UICorner", {
@@ -75,7 +74,6 @@ return function(props: CraftingItemProps)
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					Text = props.name,
-					ZIndex = 20,
 					BackgroundTransparency = 1,
 				}),
 				{}
@@ -89,7 +87,6 @@ return function(props: CraftingItemProps)
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					Text = "Lvl " .. tostring(props.level),
-					ZIndex = 20,
 					BackgroundTransparency = 1,
 				}),
 				{}
@@ -100,18 +97,25 @@ return function(props: CraftingItemProps)
 				Size = UDim2.new(0, 50, 0, 50),
 				AutomaticSize = Enum.AutomaticSize.XY,
 				Image = props.icon,
-				ZIndex = 20,
 				BackgroundTransparency = 1,
 			}, {}),
 
-			if props.level ~= 0
+			if props.level > 0 and props.level < props.maxLevel
 				then React.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(1, 0, 0, 0),
 					Size = UDim2.new(0, 48, 0, 48),
-					ZIndex = 20,
 					BackgroundTransparency = 1,
 					Image = "http://www.roblox.com/asset/?id=101521489706947",
+				}, {})
+				else nil,
+			if props.level == props.maxLevel
+				then React.createElement("ImageLabel", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(1, 0, 0, 0),
+					Size = UDim2.new(0, 48, 0, 48),
+					BackgroundTransparency = 1,
+					Image = "http://www.roblox.com/asset/?id=135756059141022",
 				}, {})
 				else nil,
 		}),
