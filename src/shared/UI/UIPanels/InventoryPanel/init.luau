@@ -70,62 +70,34 @@ return function(props)
 						ScrollWheelInputEnabled = false,
 						ref = PageRef,
 					}),
-					React.createElement(
-						InventoryPageWrapper,
-						{},
-						{
-							React.createElement(
-								CraftingPage,
-								{
-									setTooltipData = props.setTooltipData,
-									sortType = currentSort,
-									isMobile = props.isMobile,
-								}
-							),
-						}
-					),
-					React.createElement(
-						InventoryPageWrapper,
-						{},
-						{
-							React.createElement(
-								ConsumablesPage,
-								{
-									setTooltipData = props.setTooltipData,
-									sortType = currentSort,
-									isMobile = props.isMobile,
-								}
-							),
-						}
-					),
-					React.createElement(
-						InventoryPageWrapper,
-						{},
-						{
-							React.createElement(
-								CosmeticsPage,
-								{
-									setTooltipData = props.setTooltipData,
-									sortType = currentSort,
-									isMobile = props.isMobile,
-								}
-							),
-						}
-					),
-					React.createElement(
-						InventoryPageWrapper,
-						{},
-						{
-							React.createElement(
-								BuffsPage,
-								{
-									setTooltipData = props.setTooltipData,
-									sortType = currentSort,
-									isMobile = props.isMobile,
-								}
-							),
-						}
-					),
+					React.createElement(InventoryPageWrapper, {}, {
+						React.createElement(CraftingPage, {
+							setTooltipData = props.setTooltipData,
+							sortType = currentSort,
+							isMobile = props.isMobile,
+						}),
+					}),
+					React.createElement(InventoryPageWrapper, {}, {
+						React.createElement(ConsumablesPage, {
+							setTooltipData = props.setTooltipData,
+							sortType = currentSort,
+							isMobile = props.isMobile,
+						}),
+					}),
+					React.createElement(InventoryPageWrapper, {}, {
+						React.createElement(CosmeticsPage, {
+							setTooltipData = props.setTooltipData,
+							sortType = currentSort,
+							isMobile = props.isMobile,
+						}),
+					}),
+					React.createElement(InventoryPageWrapper, {}, {
+						React.createElement(BuffsPage, {
+							setTooltipData = props.setTooltipData,
+							sortType = currentSort,
+							isMobile = props.isMobile,
+						}),
+					}),
 				}
 			),
 		}),
