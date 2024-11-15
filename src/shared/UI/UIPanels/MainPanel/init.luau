@@ -54,5 +54,19 @@ return function(props)
 			setCurrentlyOpenScreen = props.setCurrentlyOpenScreen,
 			isMobile = props.isMobile,
 		}),
+		React.createElement(
+			"Frame",
+			{ Size = UDim2.new(0.75, 0, 0.75, 0), Position = UDim2.new(0.5, 0, 0.5, 0), AnchorPoint = Vector2.new(
+				0.5,
+				0.5
+			) },
+			{
+				React.createElement("UIStroke", { Thickness = 5, Color = Color3.fromRGB(255, 0, 0) }),
+				React.createElement(
+					"TextLabel",
+					{ BackgroundColor3 = Color3.fromRGB(69, 80, 139), Size = UDim2.new(1,0,1,0), Position = UDim2.new(0.5, 0, 0.5, 0), Text = "Yabbadabbadoo", Font = Enum.Font.Creepster, TextScaled = true, TextSize = 99}
+				),
+			}
+		),
 	})
 end
